@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
+import { Usuarios } from './users.js';
 import { Juego } from './game.js';
 import { crearBus, normalizarEvento } from './bus.js';
 import { Voz, frasesFijas } from './voz.js';
@@ -24,12 +25,13 @@ const MIME = {
 
 /** Lee argumentos tipo --sim --bots 25 --fast. */
 function leerArgs(argv) {
-  const args = { sim: false, bots: 0, fast: false, puerto: null, sinVoz: false };
+  const args = { sim: false, bots: 0, fast: false, puerto: null, sinVoz: false, perfiles: null };
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === '--sim') args.sim = true;
     else if (argv[i] === '--fast') args.fast = true;
     else if (argv[i] === '--sin-voz') args.sinVoz = true;
     else if (argv[i] === '--bots') args.bots = parseInt(argv[++i], 10) || 0;
+    else if (argv[i] === '--perfiles') args.perfiles = argv[++i] ?? null;
     else if (argv[i] === '--puerto') args.puerto = parseInt(argv[++i], 10) || null;
   }
   if (args.bots > 0) args.sim = true;
@@ -58,7 +60,7 @@ function servirEstatico(req, res) {
 /** Parte de la config que el overlay necesita (leyenda, cooldowns totales, etc.). */
 function configCliente(config) {
   const comandos = {};
-  for (const [cmd, def] of Object.entries(config.comandos)) comandos[cmd] = { cooldownGlobalSeg: def.cooldownGlobalSeg, tipo: def.tipo, fases: def.fases };
+  for (const [cmd, def] of Object.entries(config.comandos)) comandos[cmd] = { ...def };
   return {
     nombre: config.juego.nombre,
     leyendaEspera: config.leyendaEspera,
@@ -74,7 +76,9 @@ async function main() {
   const frases = leerJson('frases.json');
   const escalaTiempo = args.fast ? config.simulador.factorRapido : 1;
 
-  const juego = new Juego({ config, frases, escalaTiempo });
+  // El simulador nunca altera los perfiles del LIVE real.
+  const usuarios = new Usuarios({ config, archivo: args.perfiles ? path.resolve(args.perfiles) : path.join(RAIZ, 'data', args.sim ? `profiles-sim-${args.puerto ?? config.servidor.puerto}.json` : 'profiles.json') });
+  const juego = new Juego({ config, frases, escalaTiempo, usuarios });
 
   // --- Voz de Don Lucho (opcional: si falla, habla solo con texto)
   let voz = null;
@@ -143,13 +147,17 @@ async function main() {
     fuente = iniciarTikTok({ config, bus });
   }
 
+  let cerrando = false;
   const cerrar = () => {
+    if (cerrando) return;
+    cerrando = true;
     console.log('\n[servidor] Cerrando...');
     fuente?.detener?.();
     voz?.detener();
     wss.close();
     servidor.close();
-    process.exit(0);
+    const guardado = usuarios.cerrar();
+    process.exit(guardado ? 0 : 1);
   };
   process.on('SIGINT', cerrar);
   process.on('SIGTERM', cerrar);

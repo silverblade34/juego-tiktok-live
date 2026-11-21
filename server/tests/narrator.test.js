@@ -32,3 +32,30 @@ test('cada evento de frases.json tiene al menos 8 frases', () => {
     assert.ok(Array.isArray(lista) && lista.length >= minimo, `${evento} tiene ${lista.length} frases`);
   }
 });
+
+const preparadas={aburrido:['Plantilla de respaldo.'],turbo:['¡Turbo fijo!']};
+const opcionesIA={activo:true,timeoutMs:20,maxCaracteres:100,maxPendientes:1,eventosPermitidos:['aburrido']};
+test('generate: desactivada o sin proveedor conserva plantilla; reacción nunca llama a IA',async()=>{
+  let llamadas=0;const generador=()=>{llamadas++;return 'Texto IA.';};
+  const apagado=new Narrador(preparadas,Math.random,{config:{...opcionesIA,activo:false},generador});
+  assert.equal(await apagado.generate('aburrido'),'Plantilla de respaldo.');
+  assert.equal(await new Narrador(preparadas,Math.random,{config:opcionesIA}).generate('aburrido'),'Plantilla de respaldo.');
+  const activo=new Narrador(preparadas,Math.random,{config:opcionesIA,generador});assert.equal(await activo.generate('turbo'),'¡Turbo fijo!');assert.equal(llamadas,0);
+});
+test('generate: proveedor válido recibe contexto y señal de aborto',async()=>{
+  let pedido;const n=new Narrador(preparadas,Math.random,{config:opcionesIA,generador:async p=>{pedido=p;return '  Chacota nueva.  ';}});
+  assert.equal(await n.generate('aburrido',{n:2}),'Chacota nueva.');assert.equal(pedido.evento,'aburrido');assert.equal(pedido.vars.n,2);assert.equal(pedido.signal.aborted,false);assert.equal(n.pendientes,0);
+});
+test('generate: timeout retorna plantilla, aborta y descarta resultado tardío',async()=>{
+  let signal,resolver;const n=new Narrador(preparadas,Math.random,{config:opcionesIA,generador:p=>{signal=p.signal;return new Promise(r=>{resolver=r;});}});
+  assert.equal(await n.generate('aburrido'),'Plantilla de respaldo.');assert.equal(signal.aborted,true);resolver('Demasiado tarde.');assert.equal(n.pendientes,0);
+});
+test('generate: errores, texto vacío, excesivo o con etiquetas usan respaldo',async()=>{
+  for(const generador of [()=>{throw new Error('fallo');},()=>Promise.reject(new Error('red')),()=>'',()=>null,()=>'<script>no</script>',()=>'{nombre}',()=> 'x'.repeat(101)]){
+    const n=new Narrador(preparadas,Math.random,{config:opcionesIA,generador});assert.equal(await n.generate('aburrido'),'Plantilla de respaldo.');assert.equal(n.pendientes,0);
+  }
+});
+test('generate: exceso de peticiones cae inmediatamente a plantilla',async()=>{
+  let resolver;const n=new Narrador(preparadas,Math.random,{config:{...opcionesIA,timeoutMs:1000},generador:()=>new Promise(r=>{resolver=r;})});
+  const primero=n.generate('aburrido');assert.equal(await n.generate('aburrido'),'Plantilla de respaldo.');resolver('Listo.');assert.equal(await primero,'Listo.');assert.equal(n.pendientes,0);
+});

@@ -240,7 +240,22 @@
     "llegada": "{nombre} llegó al paradero",
     "explosion": "¡{nombre} explotó!",
     "meta": "{nombre} llegó a la meta",
-    "proxima": "{nombre} se anotó para la próxima"
+    "proxima": "{nombre} se anotó para la próxima",
+    "turbo": "{nombre} encendió el turbo",
+    "escudo": "{nombre} activó su escudo",
+    "escudoRoto": "El escudo de {nombre} absorbió un golpe",
+    "reparar": "{nombre} entró al taller",
+    "bomba": "{nombre} bombardeó a {objetivo}",
+    "venganza": "{nombre} se vengó de {objetivo}",
+    "aceite": "{nombre} dejó aceite",
+    "derrape": "{nombre} está derrapando",
+    "esquivar": "{nombre} buscó un hueco",
+    "esquivarExito": "{nombre} completó el esquive",
+    "fantasmaLanza": "{nombre} lanzó desde las gradas",
+    "adelantamiento": "{nombre} tomó la punta",
+    "ultimoPuesto": "{nombre} cierra la carrera",
+    "equipo": "{nombre} eligió {equipo}",
+    "subeRango": "{nombre} ascendió a {rango}"
   },
   "saludo": [
     "¡Hola {nombre}! ¿Cómo estás? Pasa, pasa, {apodo}, aquí hay sitio.",
@@ -498,5 +513,145 @@
     "¡Ojo con la piedra, que es grande!",
     "¡Cuidado, pedrón adelante!",
     "¡Una piedra! ¡Esquiven!"
+  ],
+  "turbo": [
+    "¡Ahora sí, se le prendió la cocina!",
+    "¡Ese motor tomó café pasado!",
+    "¡Guarda algo para la subida, sobrino!",
+    "¡Con ese apuro ni saluda!",
+    "¡Le metió ají al tanque!",
+    "¡Se soltó el mototaxi!",
+    "¡Corre más que cobrador en quincena!",
+    "¡A ese tubo le salió candela!"
+  ],
+  "escudo": [
+    "¡Se puso protección, hombre precavido!",
+    "¡Con burbuja hasta el mercado!",
+    "¡Blindado como táper de suegra!",
+    "¡Ese sí cuida su carrocería!",
+    "¡Póngale casco al orgullo también!",
+    "¡Hoy no le entra ni un piropo!",
+    "¡Se envolvió para regalo!",
+    "¡La burbuja no paga peaje!"
+  ],
+  "escudoRoto": [
+    "¡Se acabó la garantía!",
+    "¡La burbuja pagó el pato!",
+    "¡Eso iba directo al parachoques!",
+    "¡Salvado por el plástico!",
+    "¡Protección de un solo cariño!",
+    "¡El escudo puso el pecho!",
+    "¡Ahora sí quedó calatito el carro!",
+    "¡Se rompió pero cumplió!"
+  ],
+  "reparar": [
+    "¡Su masajito y queda nuevo!",
+    "¡Un parche para ese corazón de lata!",
+    "¡Taller al paso, sin boleta!",
+    "¡Despacio que le están cosiendo el pantalón!",
+    "¡Una curita y seguimos!",
+    "¡Ese mecánico cobra en cariño!",
+    "¡Le acomodaron los tornillos!",
+    "¡Último arreglo, cuídalo como sueldo!"
+  ],
+  "bomba": [
+    "¡Le mandaron un regalito adelante!",
+    "¡Eso no era una paloma!",
+    "¡Entrega especial sin devolución!",
+    "¡Qué cariño tan explosivo!",
+    "¡Le tocaron la puerta con pólvora!",
+    "¡Ese saludo dejó abolladura!",
+    "¡El de adelante pidió y le dieron!",
+    "¡Bombita con dedicatoria!"
+  ],
+  "venganza": [
+    "¡El vuelto vino con intereses!",
+    "¡Eso es memoria de suegra!",
+    "¡Te devolvieron el cariño!",
+    "¡Cuenta saldada, compadre!",
+    "¡El que manda recibe!",
+    "¡Esa factura estaba pendiente!",
+    "¡La revancha vino caliente!",
+    "¡Aquí nadie se queda con el vuelto!"
+  ],
+  "aceite": [
+    "¡Dejó su firmita resbalosa!",
+    "¡Eso no es aderezo, cuidado!",
+    "¡Se le cayó el aceite del chifa!",
+    "¡Qué manera de ensuciar la pista!",
+    "¡El de atrás que baile!",
+    "¡Piso encerado sin aviso!",
+    "¡Trampa con sabor a fritura!",
+    "¡Ese carro suda mantequilla!"
+  ],
+  "derrape": [
+    "¡Baila bonito esa carrocería!",
+    "¡Pasito de salsa sin permiso!",
+    "¡Se le movió la cintura!",
+    "¡Ese sí dobla la cadera!",
+    "¡Patinó como promesa de alcalde!",
+    "¡Qué elegante su resbalón!",
+    "¡Agárrate que viene el meneíto!",
+    "¡El aceite le enseñó a bailar!"
+  ],
+  "esquivar": [
+    "¡Cinturita para pasar, compadre!",
+    "¡Con permiso dijo el parachoques!",
+    "¡Se acomodó al otro ladito!",
+    "¡Ese vio venir la cuenta!",
+    "¡Abran cancha al bailarín!",
+    "¡Está buscando su huequito!",
+    "¡Volante con maña de viejo!",
+    "¡A un ladito que llevo prisa!"
+  ],
+  "esquivarExito": [
+    "¡Pasó sin despeinarse!",
+    "¡Ni le rozaron el peinado!",
+    "¡Bonita cintura, sobrino!",
+    "¡Ese huequito tenía su nombre!",
+    "¡Se salvó de la abolladura!",
+    "¡Fino como chofer de domingo!",
+    "¡La libró por un bigote!",
+    "¡Qué manera de sacarle el cuerpo!"
+  ],
+  "fantasmaLanza": [
+    "¡Desde las gradas todavía puede molestar!",
+    "¡El carro murió, la maña sigue viva!",
+    "¡Tomatazo desde el más allá!",
+    "¡Ese fantasma vino con equipaje!",
+    "¡Fuera de carrera pero con puntería!",
+    "¡Las gradas tienen servicio a domicilio!",
+    "¡Eliminado y todavía hace bulla!",
+    "¡La tribuna también juega, compadre!"
+  ],
+  "adelantamiento": [
+    "¡Le quitó el asiento de adelante!",
+    "¡Cambio de patrón en la pista!",
+    "¡Pasó cobrando pasaje!",
+    "¡Ese adelantó hasta la quincena!",
+    "¡Se coló como en el mercado!",
+    "¡Nuevo gallito en la punta!",
+    "¡Lo dejaron mirando la placa!",
+    "¡Abran paso al nuevo mandón!"
+  ],
+  "ultimoPuesto": [
+    "¡Atrás también se cobra pasaje!",
+    "¡Cierra la puerta el último, compadre!",
+    "¡Ese viene recogiendo los conos!",
+    "¡No se duerma que no es hamaca!",
+    "¡La meta no va a ir a buscarlo!",
+    "¡Va cuidando que nadie se pierda!",
+    "¡Trae el almuerzo de los demás!",
+    "¡Despacio pero con dignidad, sobrino!"
+  ],
+  "subeRango": [
+    "¡Subió de rango, ya tiene asiento reservado!",
+    "¡Ese ya es de la casa, cobra confianza!",
+    "¡Tanto comentar dio sus frutos, compadre!",
+    "¡Ascenso sin vara, puro teclado!",
+    "¡Ya tiene galones en este paradero!",
+    "¡Subió de categoría y sigue pagando sencillo!",
+    "¡La constancia también enchula el carro!",
+    "¡Aplausos, que aquí se gana la fama comentando!"
   ]
 }

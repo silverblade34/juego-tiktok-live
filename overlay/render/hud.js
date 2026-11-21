@@ -172,6 +172,9 @@ export class Hud {
       case 'miron':
         this.banner(`¡TE VEO, ${ev.nombre.toUpperCase()}!`, P.info);
         break;
+      case 'subeRango':
+        this.banner(`${ev.nombre} · ¡${ev.rango}!`, P.acento);
+        break;
       case 'saludo':
         this.pulsoEspectadores = 1;
         break;
@@ -498,7 +501,7 @@ export class Hud {
       ctx.lineWidth = 4; ctx.strokeStyle = colorAuto(p.color ?? p.cupo - 1); ctx.stroke();
       // auto de costado (rotado) a la izquierda de la celda
       ctx.save(); ctx.translate(x + 36, y + ch / 2); ctx.rotate(Math.PI / 2); ctx.scale(0.46, 0.46);
-      dibujarAuto(ctx, { modelo: p.modelo, color: p.color ?? p.cupo - 1, numero: p.cupo, hp: 100 });
+      dibujarAuto(ctx, { modelo: p.modelo, color: p.color ?? p.cupo - 1, numero: p.cupo, hp: 100, cosmeticos: p.cosmeticos });
       ctx.restore();
       textoContorno(ctx, p.nombre, x + 70, y + ch / 2 + 1, { px: 21, align: 'left', color: P.contorno, contorno: null, maxAncho: cw - 76 });
       ctx.restore();

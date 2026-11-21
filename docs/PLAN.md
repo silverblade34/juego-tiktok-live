@@ -3,7 +3,7 @@
 > Documento para que **cualquier IA o persona** continúe el proyecto sin contexto previo.
 > Léelo entero antes de tocar código. `CLAUDE.md` describe lo que YA está hecho (arquitectura,
 > decisiones, cómo correr); este archivo describe **qué se busca, qué falta y cómo hacerlo**.
-> Última actualización: 2026-11-21 (Fases 1, 1.5, voz, 2 y 3 terminadas).
+> Última actualización: 2026-11-21 (Fases 1, 1.5, voz, 2, 3, 4 y 5 terminadas).
 
 ---
 
@@ -53,7 +53,7 @@ Objetivos, en orden de importancia:
 - Decisiones menores: tomarlas y **documentarlas en CLAUDE.md** (no preguntar detalles menores).
 - **Todo valor de balance en `config.json`** (tiempos, daños, cooldowns, cantidades). Nunca hardcodear.
 - Código modular, **comentado en español**, funciones pequeñas.
-- **Pruebas `node:test`** para la lógica pura (`npm test`). Hoy hay 54, todas pasan; mantenerlas verdes.
+- **Pruebas `node:test`** para la lógica pura (`npm test`). Hoy hay 85, todas pasan; mantenerlas verdes.
 - Todo debe poder probarse **sin TikTok** (`npm run sim`).
 - Frases nuevas en `frases.json` (≥ 8 por evento; los `aviso_*` ≥ 4). Hay una prueba que lo verifica.
 
@@ -71,6 +71,7 @@ Objetivos, en orden de importancia:
      `lucho.estiloVoz()` al hablar (prioridad `importante` ⇒ `grito`). Si agregas un evento importante,
      agrégalo al mapa `estiloDe`. Hay una prueba en `server/tests/voz.test.js`.
    - Después de cambiar frases: `npm run voz:pregrabar` (tarda ~10 s por frase la primera vez).
+   - Si el texto es igual pero el audio es defectuoso o cambió la síntesis: `npm run voz:regenerar -- balde baldeDormido` (o los eventos afectados). Ver corrección de voz en `CLAUDE.md`.
 2. **El dueño corre su propio servidor en el puerto 3000.** NO lo mates. Para tus pruebas usa
    `--puerto 3100` (y `--sin-voz` para no cargar otro modelo de voz de 3.5 GB de RAM).
 3. **Disco casi lleno** (~25 GB libres). No descargues modelos grandes sin necesidad y borra lo que descartes.
@@ -96,9 +97,9 @@ Objetivos, en orden de importancia:
 | Sonidos | ✅ | `overlay/render/sonidos.js` sintetiza todo; ambiente de calle, motores, flatulencias |
 | 2 Lobby y autos | ✅ | 30 cupos, lista de espera, bots de relleno, 5 modelos de auto como datos, parrilla 6×5 |
 | 3 Carrera automática | ✅ | Pista con semilla (5 tramos, 13 obstáculos), liga, separación, daño visual, explosión, chatarra, cámara, minimapa, top 3, podio |
-| 4 Estrategia y narración | ⏳ | **siguiente** (§6) |
-| 5 Persistencia y ranking | ⏳ | §7 |
-| 6 TikTok real + OBS | ⏳ | §8 |
+| 4 Estrategia y narración | ✅ | Comandos, recursos, fantasmas, equipos opcionales, efectos y narración (§6) |
+| 5 Persistencia y ranking | ✅ | Perfiles seguros, rangos, rankings día/global y cosméticos (§7) |
+| 6 TikTok real + OBS | ⏳ | **siguiente** (§8) |
 | 7 Preparar IA + regalos | ⏳ | §9 |
 
 Máquina de estados: `ESPERA → LOBBY → CARRERA → RESULTADOS → ESPERA` (o `LOBBY` directo si hay lista de espera).
@@ -115,11 +116,16 @@ Mapa rápido del código donde vas a trabajar:
 
 ---
 
-## 6. FASE 4 — Estrategia y narración  ← SIGUIENTE
+## 6. FASE 4 — Estrategia y narración  ✅ COMPLETADA
 
 **Objetivo:** que el chat tome **decisiones** que cambien el resultado. La estrategia nace de recursos
 limitados: ¿gasto las 2 cargas de turbo al inicio o las guardo? ¿uso la única reparación ya? ¿bomba al de
 adelante (que puede vengarse)? Mantener eso intacto.
+
+Implementada el 2026-11-21. Ver decisiones y verificación en `CLAUDE.md`, apartado
+"Estrategia y narración". `!rezar` (opcional) se omitió. Equipos disponibles y OFF por defecto.
+Validación: 67 pruebas, diez rondas de 25 pilotos y revisión visual headless a 1080×1920.
+La fase 5 también está completada; ver §7.
 
 ### 6.1 Comandos (solo jugadores inscritos y VIVOS en la carrera actual)
 | Comando | Efecto | Límite (config) |
@@ -186,7 +192,12 @@ turbo en el momento correcto y termina mejor que sin usarlos.
 
 ---
 
-## 7. FASE 5 — Persistencia y ranking
+## 7. FASE 5 — Persistencia y ranking ✅ COMPLETADA
+
+Implementada el 2026-11-21. Ver decisiones de archivos, recuperación, calendario local,
+cosméticos y pruebas en `CLAUDE.md`, apartado "Persistencia, rangos y ranking".
+Validación: 82 pruebas, diez rondas de 25 jugadores, guardado/recarga y cierre real con
+SIGINT/SIGTERM. Siguiente: fase 6. Detenerse aquí para la prueba del dueño.
 
 1. `server/users.js`: perfil por userId de TikTok: `nombre, comentarios, victorias, carreras, puntos,
    danoCausado, baldazos, cafes, cornetazos, mantas, rango, cosmeticos` (ya suma algunos campos en memoria).
@@ -257,4 +268,4 @@ turbo en el momento correcto y termina mejor que sin usarlos.
 - Con zoom muy alejado las etiquetas de nombres se superponen (se podría mostrar solo top N + el propio).
 - La grilla del lobby y la burbuja de Don Lucho se tocan cuando hay 5 filas y una frase larga.
 - Gotitas de "mojado" siguen cayendo un instante al pasar a la escena de carrera.
-- No hay repositorio git todavía: conviene `git init` y un primer commit antes de que otra IA siga.
+- El proyecto ya tiene repositorio git; revisar `git status` antes de continuar.

@@ -1,3 +1,5 @@
+import { dibujarRankingEspera } from './render/progreso.js';
+import { Estrategia, dibujarRecursos, dibujarLeyendaCarrera } from './render/estrategia.js';
 // Overlay: se conecta al servidor por WebSocket, recibe snapshots y dibuja a 60 fps.
 // No decide nada del juego: si se recarga, el primer snapshot reconstruye todo.
 //
@@ -39,6 +41,7 @@ const hud = new Hud();
 const voz = new VozCliente();
 const sonidos = new Sonidos();
 const camara = new Camara();
+const estrategia = new Estrategia();
 if (new URLSearchParams(location.search).has('depurar')) { window.__voz = voz; window.__sonidos = sonidos; } // solo para pruebas
 
 // Carrera: datos estáticos (llegan 1 vez por segundo) + búfer de snapshots para interpolar.
@@ -115,6 +118,7 @@ function alSnapshot(s) {
 
 function recibirCarrera(c) {
   if (c.pista && c.pista.semilla !== carrera.semilla) {
+    estrategia.avisos = [];
     carrera.semilla = c.pista.semilla;
     carrera.pista = c.pista;
     carrera.avisos.clear();
@@ -135,6 +139,9 @@ function recibirCarrera(c) {
 
 /** Traduce eventos del servidor a efectos visuales y sonidos. */
 function procesarEvento(ev, s) {
+  if (s.carrera) estrategia.evento(ev, s.carrera);
+  const sfx = { turbo:'turbo', escudo:'escudo', escudoRoto:'escudo', reparar:'reparar', bomba:'bomba', aceite:'aceite', derrape:'derrape', esquivar:'esquivar', esquivarExito:'escudo', fantasmaLanza:'lanzar', venganza:'bomba', equipo:'pop' };
+  if (sfx[ev.tipo]) sonidos.tocar(sfx[ev.tipo], { minMs: 100 });
   const cabeza = lucho.pCabeza;
   hud.evento(ev);
   switch (ev.tipo) {
@@ -149,6 +156,7 @@ function procesarEvento(ev, s) {
     case 'spam': efectos.sacudir(10); sonidos.tocar('silbato'); break;
     case 'paciencia': sonidos.tocar('paciencia'); break;
     case 'saludo': sonidos.tocar('saludo'); break;
+    case 'subeRango': sonidos.tocar('ascenso'); efectos.confeti(540, 250, 45); break;
     case 'miron': sonidos.tocar('psst'); break;
     case 'inscrito': sonidos.tocar('pop', { minMs: 90 }); break;
     case 'lobbyAbre':
@@ -162,7 +170,7 @@ function procesarEvento(ev, s) {
       if (ev.obstaculo === 'vaca') sonidos.tocar('vaca');
       else if (ev.obstaculo === 'perro') sonidos.tocar('perro');
       else sonidos.tocar('tic');
-      carrera.avisos.set(ev.id, performance.now());
+      carrera.avisos.set(ev.obstaculoId, performance.now());
       break;
     case 'golpe': {
       sonidos.tocar('golpe', { minMs: 110 });
@@ -251,6 +259,7 @@ function cuadro(ahora) {
     actualizarCarrera(dt, s);
     actualizarSonidos(s);
   }
+  estrategia.update(dt);
   efectos.update(dt);
   particulas.update(dt);
 
@@ -330,7 +339,7 @@ function dibujarEscenaParadero(s, tiempo, lay) {
   lucho.dibujar(ctx, lay.lucho);
   efectos.dibujar(ctx);
   particulas.dibujar(ctx);
-  hud.dibujarAtraccion(ctx);
+  if (!dibujarRankingEspera(ctx, s)) hud.dibujarAtraccion(ctx);
   hud.dibujarFeed(ctx, s.feed);
   hud.dibujarLobby(ctx, s);
   hud.dibujarPaciencia(ctx);
@@ -350,6 +359,7 @@ function dibujarEscenaCarrera(s, tiempo, lay) {
       posObstaculo: (o) => carrera.moviles.get(o.id) ?? { x: o.x, y: o.y },
       avisos: carrera.avisos, chatarra: c.chatarra, info: carrera.info,
     });
+    estrategia.dibujar(ctx, s, camara);
     dibujarAutos(c, tiempo);
   }
   particulas.dibujar(ctx);
@@ -362,6 +372,7 @@ function dibujarEscenaCarrera(s, tiempo, lay) {
   lucho.dibujar(ctx, lay.lucho);
   efectos.dibujar(ctx);
   dibujarBurbujaLucho(s);
+  if (s.fase === 'CARRERA') dibujarLeyendaCarrera(ctx, s, carrera.info, estado.cliente);
   hud.dibujarFlotantesYBanners(ctx);
   if (voz.bloqueado) hud.dibujarAvisoSonido(ctx);
 }
@@ -382,8 +393,9 @@ function dibujarAutos(c, tiempo) {
     ctx.scale(z, z);
     // pequeño bamboleo al ir con poca vida
     if (a.hp < 40) ctx.rotate(Math.sin(tiempo * 14 + a.id) * 0.05);
-    dibujarAuto(ctx, { modelo: info?.modelo, color: info?.color, numero: info?.numero, hp: a.hp, tiempo });
+    dibujarAuto(ctx, { modelo: info?.modelo, color: info?.color, numero: info?.numero, hp: a.hp, tiempo, cosmeticos: info?.cosmeticos });
     ctx.restore();
+    dibujarRecursos(ctx, p, c.recursos?.find(r => r.id === a.id), z, tiempo);
     if (info) etiquetas.push({ x: p.x, y: p.y - 70 * z - 18, nombre: info.nombre, lider: a.id === lider, hp: a.hp, bot: info.bot });
   }
   // Etiquetas encima de todo (el líder al final para que quede arriba)

@@ -2,6 +2,12 @@
 import { P } from './palette.js';
 
 const DIBUJOS = {
+  turbo(ctx) { ctx.fillStyle='#ffbf39';ctx.beginPath();ctx.moveTo(10,-40);ctx.lineTo(-25,8);ctx.lineTo(0,8);ctx.lineTo(-10,40);ctx.lineTo(30,-8);ctx.lineTo(5,-8);ctx.closePath();ctx.fill();ctx.stroke(); },
+  escudo(ctx) { ctx.fillStyle='#55dfff';ctx.beginPath();ctx.moveTo(0,-38);ctx.lineTo(32,-22);ctx.quadraticCurveTo(35,20,0,40);ctx.quadraticCurveTo(-35,20,-32,-22);ctx.closePath();ctx.fill();ctx.stroke(); },
+  reparar(ctx) { ctx.fillStyle='#75e89c';ctx.fillRect(-10,-35,20,70);ctx.fillRect(-35,-10,70,20); },
+  bomba(ctx) { ctx.fillStyle='#323146';ctx.beginPath();ctx.arc(0,8,28,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.beginPath();ctx.moveTo(10,-18);ctx.lineTo(20,-38);ctx.stroke(); },
+  aceite(ctx) { ctx.fillStyle='#392948';ctx.beginPath();ctx.ellipse(0,10,38,20,-.2,0,Math.PI*2);ctx.fill();ctx.stroke(); },
+  esquivar(ctx) { ctx.strokeStyle='#ffe17b';ctx.lineWidth=12;ctx.beginPath();ctx.moveTo(-30,30);ctx.lineTo(25,-25);ctx.lineTo(0,-25);ctx.moveTo(25,-25);ctx.lineTo(25,0);ctx.stroke(); },
   balde(ctx) {
     ctx.beginPath();
     ctx.moveTo(-34, -22); ctx.lineTo(34, -22); ctx.lineTo(25, 38); ctx.lineTo(-25, 38); ctx.closePath();

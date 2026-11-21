@@ -125,6 +125,16 @@ export class Sonidos {
 
   // ---------------------------------------------------------------- efectos
 
+  sfx_ascenso() { for (let i=0;i<4;i++) this.tono({t0:i*.13,dur:.18,f0:440*2**(i/3),f1:440*2**(i/3),vol:.16}); }
+  sfx_turbo() { this.ruidoFiltrado({dur:.7,tipo:'bandpass',f0:300,f1:3000,q:1,vol:.25}); this.tono({dur:.6,f0:140,f1:800,vol:.15}); }
+  sfx_escudo() { this.tono({dur:.4,f0:700,f1:1500,vol:.18}); }
+  sfx_bomba() { this.ruidoFiltrado({dur:.4,tipo:'lowpass',f0:1500,f1:80,q:1,vol:.4}); }
+  sfx_aceite() { this.ruidoFiltrado({dur:.5,tipo:'bandpass',f0:500,f1:200,q:2,vol:.2}); }
+  sfx_derrape() { this.tono({dur:.7,tipo:'sawtooth',f0:900,f1:300,vol:.1}); }
+  sfx_lanzar() { this.tono({dur:.5,f0:1200,f1:180,vol:.15}); }
+  sfx_reparar() { for(let i=0;i<3;i++) this.tono({t0:i*.12,dur:.1,f0:500+i*200,f1:600+i*200,vol:.15}); }
+  sfx_esquivar() { this.ruidoFiltrado({dur:.25,tipo:'bandpass',f0:500,f1:2500,q:1,vol:.2}); }
+
   sfx_balde() {
     // chorro + salpicón grande
     this.ruidoFiltrado({ dur: 0.9, tipo: 'bandpass', f0: 900, f1: 2500, q: 0.8, vol: 0.5, ataque: 0.05 });

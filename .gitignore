@@ -6,3 +6,6 @@ data/voz-cache/
 .venv-xtts/
 .venv-clon/
 capturas/
+data/profiles*.json.bak
+data/profiles*.json.tmp
+__pycache__/

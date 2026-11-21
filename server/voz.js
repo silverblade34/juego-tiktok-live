@@ -10,6 +10,7 @@ import { spawn, execFile } from 'node:child_process';
 import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
+import { segmentarVoz } from './voz/texto.js';
 
 /** Prepara un texto de pantalla para ser leído en voz alta. Devuelve null si no hay nada que decir. */
 export function limpiarParaVoz(texto) {
@@ -239,7 +240,7 @@ export class Voz {
 
   resultado(archivo) {
     const durMs = archivo.endsWith('.mp3') ? duracionMp3Ms(fs.statSync(archivo).size) : duracionWavMs(archivo);
-    return { url: `/voz/${path.basename(archivo)}`, durMs: Math.round(durMs) };
+    return { url: `/voz/${path.basename(archivo)}?v=${Math.trunc(fs.statSync(archivo).mtimeMs)}`, durMs: Math.round(durMs) };
   }
 
   // ---------------------------------------------------------------- API
@@ -267,13 +268,22 @@ export class Voz {
     return promesa;
   }
 
+  regenerar(textoPantalla, estilo = 'normal') {
+    const texto = limpiarParaVoz(textoPantalla);
+    if (!texto) return Promise.reject(new Error('nada que decir'));
+    return this.generar(texto, estilo, 'fondo');
+  }
+
   async generar(texto, estilo, prioridad) {
     if (this.motor !== 'mac' && this.workerUsable()) {
       const archivo = this.archivoDe(this.motor, texto, estilo);
       const e = this.cfg.estilos[estilo] ?? this.cfg.estilos.normal;
       const datos = this.motor === 'edge'
         ? { texto, voz: this.cfg.edge.voz, rate: e.rate, pitch: e.pitch, archivo }
-        : { texto, archivo, prioridad, velocidad: e.velocidad ?? 1, temperatura: e.temperatura ?? 0.7 };
+        : { texto, archivo, prioridad, velocidad: e.velocidad ?? 1, temperatura: Math.min(e.temperatura ?? 0.7, this.cfg.clon.sintesis.temperaturaMax),
+          segmentos: segmentarVoz(texto, this.cfg.clon.sintesis.maxCaracteresSegmento, this.cfg.clon.sintesis.minCaracteresSegmento),
+          controlDuracion: this.cfg.clon.sintesis,
+          pausaMs: this.cfg.clon.sintesis.pausaMs, semilla: this.cfg.clon.sintesis.semilla, bordeMs: this.cfg.clon.sintesis.bordeMs };
       const timeout = prioridad === 'fondo' ? this.cfg.timeoutFondoMs : this.cfg.timeoutMs;
       try {
         await this.worker.pedir(datos, timeout);

@@ -133,6 +133,16 @@ export function iniciarSimulador({ juego, bus, config, escalaTiempo, bots = 0 })
       if (rng() < cs.probComentarLobby) conLag(bot.nombre, rng() < 0.2 ? elegir(rng, MOLESTIAS) : elegir(rng, LOBBY));
       return;
     }
+    if (juego.fase === 'CARRERA') {
+      const a = juego.carrera.autos.find(a => a.userId === `sim_${bot.nombre.toLowerCase()}`);
+      if (!a) conLag(bot.nombre, '¡La próxima corro yo!');
+      else if (a.estado === 'destruido') conLag(bot.nombre, `!lanzar ${1 + Math.floor(rng() * config.carrera.carriles)}`);
+      else if (a.estado === 'vivo') {
+        const cmd = a.hp < 75 && !a.reparoUsado ? 'reparar' : elegir(rng, cs.comandosCarrera);
+        conLag(bot.nombre, `!${cmd}`);
+      }
+      return;
+    }
     if (!olaActiva(juego.t)) return;
     const r = rng();
     if (r < cs.probRafagaSpam) {

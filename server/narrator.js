@@ -11,7 +11,10 @@ export class Narrador {
    * @param {object} frases  mapa evento -> [plantillas]
    * @param {() => number} rng
    */
-  constructor(frases, rng = Math.random) {
+  constructor(frases, rng = Math.random, { config = {}, generador = null } = {}) {
+    this.cfg = config;
+    this.generador = generador;
+    this.pendientes = 0;
     this.frases = frases;
     this.rng = rng;
     this.ultima = new Map(); // evento -> índice usado la última vez
@@ -36,11 +39,23 @@ export class Narrador {
     return p ? rellenar(p, vars) : null;
   }
 
-  /**
-   * Fase 7: punto de enchufe para IA + voz. Hoy devuelve la plantilla.
-   * La versión IA deberá respetar un timeout y caer a la plantilla si falla.
-   */
+  /** Enchufe asíncrono opcional: solo charla permitida; las reacciones usan frase() siempre. */
   async generate(evento, vars = {}) {
-    return this.frase(evento, vars);
+    const plantilla = this.frase(evento, vars);
+    if (!this.cfg.activo || !this.generador || !plantilla ||
+        !this.cfg.eventosPermitidos?.includes(evento) || this.pendientes >= this.cfg.maxPendientes) return plantilla;
+    const abortar = new AbortController();
+    let timer;
+    this.pendientes++;
+    try {
+      const timeout = new Promise(resolve => {
+        timer = setTimeout(() => { abortar.abort(); resolve(null); }, this.cfg.timeoutMs);
+      });
+      const generado = Promise.resolve().then(() => this.generador({ evento, vars: { ...vars }, plantilla, signal: abortar.signal }));
+      const texto = await Promise.race([generado, timeout]);
+      return typeof texto === 'string' && texto.trim() && texto.trim().length <= this.cfg.maxCaracteres && !/[<>{}]/u.test(texto)
+        ? texto.trim() : plantilla;
+    } catch { return plantilla; }
+    finally { clearTimeout(timer); this.pendientes--; }
   }
 }

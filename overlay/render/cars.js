@@ -41,6 +41,16 @@ export function dibujarAuto(ctx, a) {
   const base = quemado ? '#3a3430' : colorAuto(a.color ?? 0);
   ctx.lineJoin = 'round';
 
+  const cosmeticos = quemado ? [] : (a.cosmeticos ?? []);
+  // Cada cosmético es un dato; no altera ninguna propiedad de la simulación.
+  for (const c of cosmeticos.filter(c => c.tipo === 'estela')) {
+    ctx.save();
+    const gradiente = ctx.createLinearGradient(0, L/2, 0, L*1.5);
+    gradiente.addColorStop(0, c.color); gradiente.addColorStop(1, 'transparent');
+    ctx.fillStyle = gradiente;
+    ctx.beginPath();ctx.moveTo(-W*.4,L*.4);ctx.lineTo(-W*.2,L*1.5);ctx.lineTo(W*.2,L*1.5);ctx.lineTo(W*.4,L*.4);ctx.closePath();ctx.fill();
+    ctx.restore();
+  }
   // sombra
   ctx.fillStyle = 'rgba(0,0,0,0.28)';
   rr(ctx, x0 + 5, y0 + 8, W, L, m.radio); ctx.fill();
@@ -96,6 +106,15 @@ export function dibujarAuto(ctx, a) {
   if (m.toldo && !quemado) { // mototaxi: toldo a rayas
     ctx.fillStyle = 'rgba(255,255,255,0.5)';
     for (let i = 0; i < 4; i++) ctx.fillRect(x0 + 4 + i * (W - 8) / 4, y0 + L * ti, (W - 8) / 8, L * tl);
+  }
+
+  for (const c of cosmeticos) {
+    if (c.tipo === 'techo') {
+      ctx.fillStyle=c.color; rr(ctx,x0+8,y0+L*ti,W-16,L*tl,7);ctx.fill();
+      ctx.strokeStyle='#fff4bc';ctx.lineWidth=2;ctx.stroke();
+    } else if (c.tipo === 'distintivo') {
+      ctx.strokeStyle=c.color;ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(-W/2+8,y0+L*.7);ctx.lineTo(-W/2+8,y0+L*.9);ctx.stroke();
+    }
   }
 
   // número en el techo

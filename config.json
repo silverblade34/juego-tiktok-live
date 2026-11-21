@@ -11,7 +11,10 @@
   "tiktok": {
     "usuario": "",
     "reconexionBaseSeg": 2,
-    "reconexionMaxSeg": 60
+    "reconexionMaxSeg": 60,
+    "timeoutMs": 15000,
+    "deduplicarSeg": 120,
+    "maxEventosRecordados": 2000
   },
   "fases": {
     "lobbySeg": 45,
@@ -60,7 +63,7 @@
   "voz": {
     "activa": true,
     "motor": "clon",
-    "clon": { "referencia": "voz-referencia/cubano.wav", "dispositivo": "cpu", "respaldo": "texto" },
+    "clon": { "referencia": "voz-referencia/cubano.wav", "dispositivo": "cpu", "respaldo": "texto", "sintesis": { "maxCaracteresSegmento": 85, "minCaracteresSegmento": 12, "minLimiteSegmentoSeg": 4, "segPorPalabraMax": 0.9, "margenSegmentoSeg": 1.5, "reintentos": 2, "pausaMs": 120, "temperaturaMax": 0.55, "semilla": 42, "bordeMs": 5 } },
     "edge": { "voz": "es-CU-ManuelNeural", "respaldo": "mac" },
     "estilos": {
       "normal":  { "velocidad": 1.05, "temperatura": 0.7,  "rate": "+8%",  "pitch": "-4Hz",  "factorMac": 1.0 },
@@ -109,6 +112,8 @@
     "puntosDestruido": 0,
     "puntosLlegar": 1,
     "narrarLiderCadaSeg": 9,
+    "narrarReaccionCadaSeg": 2,
+    "narrarUltimoCadaSeg": 18,
     "charlaCadaSeg": [9, 15],
     "modelos": ["sedan", "sedan", "combi", "deportivo", "mototaxi", "camion"],
     "tramos": ["ciudad", "mercado", "carretera", "cerro", "meta"]
@@ -142,7 +147,16 @@
     "cafe": { "tipo": "molestia", "fases": ["ESPERA", "LOBBY"], "cooldownGlobalSeg": 30, "cooldownUsuarioSeg": 0, "paciencia": 12, "estadistica": "cafes" },
     "corneta": { "tipo": "molestia", "fases": ["ESPERA", "LOBBY"], "cooldownGlobalSeg": 20, "cooldownUsuarioSeg": 0, "paciencia": 18, "estadistica": "cornetazos" },
     "manta": { "tipo": "molestia", "fases": ["ESPERA"], "cooldownGlobalSeg": 40, "cooldownUsuarioSeg": 0, "paciencia": 10, "estadistica": "mantas" },
-    "jugar": { "tipo": "jugar", "fases": ["ESPERA"], "cooldownGlobalSeg": 0, "cooldownUsuarioSeg": 0 }
+    "jugar": { "tipo": "jugar", "fases": ["ESPERA"], "cooldownGlobalSeg": 0, "cooldownUsuarioSeg": 0 },
+    "turbo": {"tipo": "carrera", "fases": ["CARRERA"], "cooldownUsuarioSeg": 0, "cargas": 2, "turboFactor": 1.4, "turboSeg": 3, "turboDanoFactor": 1.5},
+    "escudo": {"tipo": "carrera", "fases": ["CARRERA"], "cooldownUsuarioSeg": 30, "escudoSeg": 8},
+    "reparar": {"tipo": "carrera", "fases": ["CARRERA"], "cooldownUsuarioSeg": 0, "cargas": 1, "repararPorc": 25, "repararFrenoSeg": 2, "repararFrenoFactor": 0.35},
+    "esquivar": {"tipo": "carrera", "fases": ["CARRERA"], "cooldownUsuarioSeg": 8, "esquivarVentanaSeg": 4, "esquivarDeriva": 4, "esquivarMargen": 0.2},
+    "bomba": {"tipo": "carrera", "fases": ["CARRERA"], "cooldownUsuarioSeg": 25, "bombaDano": 18, "bombaFrenoSeg": 2},
+    "aceite": {"tipo": "carrera", "fases": ["CARRERA"], "cooldownUsuarioSeg": 20, "aceiteSeg": 15, "aceiteAncho": 1.2, "aceiteDistancia": 45, "derrapeSeg": 1.5, "derrapeDesvio": 1.4, "derrapeDeriva": 2},
+    "lanzar": {"tipo": "fantasma", "fases": ["CARRERA"], "cooldownUsuarioSeg": 40, "lanzarDano": 8, "lanzarDistancia": 600, "lanzarAncho": 0.7, "lanzarSeg": 12},
+    "ceviche": {"tipo": "equipo", "fases": ["CARRERA"], "cooldownUsuarioSeg": 0},
+    "chifa": {"tipo": "equipo", "fases": ["CARRERA"], "cooldownUsuarioSeg": 0}
   },
   "leyendaEspera": ["balde", "cafe", "corneta", "manta", "jugar"],
   "equipos": {
@@ -154,6 +168,7 @@
     "lagMinSeg": 1,
     "lagMaxSeg": 6,
     "botCadenciaSeg": [6, 22],
+    "comandosCarrera": ["turbo", "escudo", "reparar", "bomba", "aceite", "esquivar"],
     "olaQuietaInicialSeg": 70,
     "olaActivaSeg": 35,
     "olaQuietaSeg": 80,
@@ -164,6 +179,84 @@
     "llegadasIniciales": true,
     "mironCadaSeg": [15, 35],
     "mironQuedaSeg": [60, 180]
+  },
+  "perfiles": {
+    "guardadoSeg": 2,
+    "zonaHoraria": "America/Lima",
+    "top": 3,
+    "rotacionSeg": 8,
+    "rangoAvisoCadaSeg": 4,
+    "rangos": [
+      {
+        "nombre": "Curioso",
+        "comentarios": 0
+      },
+      {
+        "nombre": "Habitual",
+        "comentarios": 5
+      },
+      {
+        "nombre": "Fiel",
+        "comentarios": 20
+      },
+      {
+        "nombre": "Leyenda",
+        "comentarios": 50
+      }
+    ],
+    "cosmeticos": [
+      {
+        "id": "distintivo",
+        "tipo": "distintivo",
+        "rango": "Habitual",
+        "color": "#73efb0"
+      },
+      {
+        "id": "estela",
+        "tipo": "estela",
+        "rango": "Fiel",
+        "color": "#b985ff"
+      },
+      {
+        "id": "techoDorado",
+        "tipo": "techo",
+        "rango": "Leyenda",
+        "color": "#ffd34d"
+      }
+    ]
+  },
+  "narradorIA": {
+    "activo": false,
+    "timeoutMs": 1200,
+    "maxCaracteres": 180,
+    "maxPendientes": 2,
+    "eventosPermitidos": [
+      "aburrido",
+      "carreraCharla",
+      "podioCharla",
+      "lobbyCharla"
+    ]
+  },
+  "regalos": {
+    "activo": false,
+    "mapa": {},
+    "efectos": {
+      "confeti": {
+        "tipo": "confeti",
+        "color": "#ffd23f",
+        "duracionSeg": 3
+      },
+      "estelaFiesta": {
+        "tipo": "estela",
+        "color": "#ff7eb6",
+        "duracionSeg": 15
+      },
+      "techoFiesta": {
+        "tipo": "techo",
+        "color": "#ffd23f",
+        "duracionSeg": 15
+      }
+    }
   },
   "publico": {
     "maxEspectadoresParaSaludarTodos": 10,

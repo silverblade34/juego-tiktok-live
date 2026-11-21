@@ -14,9 +14,14 @@
     "voz:instalar": "python3 -m venv .venv-voz && .venv-voz/bin/pip install --upgrade edge-tts",
     "voz:probar": "node server/voz-probar.js",
     "voz:instalar-clon": "python3.11 -m venv .venv-xtts && .venv-xtts/bin/pip install -r server/voz/requirements-clon.txt",
-    "voz:pregrabar": "node server/voz-pregrabar.js"
+    "voz:pregrabar": "node server/voz-pregrabar.js",
+    "voz:regenerar": "node server/voz-regenerar.js"
   },
   "dependencies": {
+    "tiktok-live-connector": "2.1.0",
     "ws": "^8.18.0"
+  },
+  "overrides": {
+    "protobufjs": "7.6.5"
   }
 }

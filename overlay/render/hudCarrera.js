@@ -119,7 +119,7 @@ export function dibujarPanelLucho(ctx) {
   g.addColorStop(0, '#2c8f88'); g.addColorStop(1, '#1d1530');
   ctx.fillStyle = g; ctx.fillRect(0, y, ANCHO, ALTO - y);
   ctx.fillStyle = P.acento; ctx.fillRect(0, y, ANCHO, 6);
-  textoContorno(ctx, '¡Comenta para entrar a la PRÓXIMA carrera!', 640, ALTO - 42, { px: 30, color: P.blanco, grosor: 7 });
+  textoContorno(ctx, 'Comenta para la próxima carrera', 640, ALTO - 12, { px: 21, color: P.blanco, grosor: 7 });
 }
 
 /** Pantalla de resultados: podio con autos, burla al último y estadísticas. */
@@ -135,7 +135,7 @@ export function dibujarResultados(ctx, r, reloj, tEntrada) {
 
   // Podio: 2º izquierda, 1º centro (más alto), 3º derecha
   const orden = [1, 0, 2];
-  const alturas = [260, 340, 200];
+  const alturas = [340, 260, 200];
   orden.forEach((idx, col) => {
     const f = r.podio[idx];
     if (!f) return;
@@ -148,7 +148,7 @@ export function dibujarResultados(ctx, r, reloj, tEntrada) {
     // auto saltando encima
     const salto = idx === 0 ? Math.abs(Math.sin(reloj * 5)) * 18 : Math.abs(Math.sin(reloj * 4 + idx)) * 8;
     ctx.save(); ctx.translate(x, base - h - 70 - salto); ctx.scale(1.1, 1.1);
-    dibujarAuto(ctx, { modelo: f.modelo, color: f.color, numero: f.numero, hp: f.estado === 'destruido' ? 0 : 100, destruido: f.estado === 'destruido', tiempo: reloj });
+    dibujarAuto(ctx, { modelo: f.modelo, color: f.color, numero: f.numero, hp: f.estado === 'destruido' ? 0 : 100, destruido: f.estado === 'destruido', tiempo: reloj, cosmeticos: f.cosmeticos });
     ctx.restore();
     textoContorno(ctx, f.nombre, x, base - h - 150 - salto, { px: idx === 0 ? 38 : 30, color: P.contorno, contorno: '#ffffff', grosor: 8, maxAncho: 270 });
     textoContorno(ctx, `+${f.puntos} pts`, x, base + 40, { px: 32, color: '#5a5470', contorno: null });
@@ -165,9 +165,12 @@ export function dibujarResultados(ctx, r, reloj, tEntrada) {
   const lineas = [
     st.masGolpes && `Más golpeado: ${st.masGolpes.nombre} (${st.masGolpes.valor} golpes)`,
     st.masDano && `Más daño recibido: ${st.masDano.nombre} (${st.masDano.valor})`,
+    r.filas[0] && !r.filas[0].bot && `1.º: ${r.filas[0].rango} · ${r.filas[0].victorias} victorias · ${r.filas[0].puntosTotal} puntos totales`,
+    r.rankings?.diario.baldazos[0] && `Aguador del día: ${r.rankings.diario.baldazos[0].nombre} (${r.rankings.diario.baldazos[0].valor})`,
+    r.rankings?.diario.puntos[0] && `Líder diario: ${r.rankings.diario.puntos[0].nombre} (${r.rankings.diario.puntos[0].valor} puntos)`,
     `Llegaron ${st.llegaron} · Explotaron ${st.destruidos} · ${st.segundos} s`,
   ].filter(Boolean);
-  for (const l of lineas) { textoContorno(ctx, l, ANCHO / 2, y, { px: 34, color: P.contorno, contorno: null, maxAncho: ANCHO - 160 }); y += 62; }
+  for (const l of lineas) { textoContorno(ctx, l, ANCHO / 2, y, { px: 29, color: P.contorno, contorno: null, maxAncho: ANCHO - 160 }); y += 47; }
   textoContorno(ctx, '¡Comenta para la próxima carrera!', ANCHO / 2, 1430, { px: 40, color: '#ff7b1c', grosor: 8 });
   ctx.restore();
 }

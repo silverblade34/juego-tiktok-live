@@ -19,12 +19,13 @@ export class Juego {
   /**
    * @param {{config: object, frases: object, rng?: () => number, escalaTiempo?: number}} deps
    */
-  constructor({ config, frases, rng = Math.random, escalaTiempo = 1 }) {
+  constructor({ config, frases, rng = Math.random, escalaTiempo = 1, usuarios = null }) {
     this.cfg = config;
     this.rng = rng;
     this.escalaTiempo = escalaTiempo;
-    this.narrador = new Narrador(frases, rng);
-    this.usuarios = new Usuarios();
+    this.narrador = new Narrador(frases, rng, { config: config.narradorIA });
+    this.usuarios = usuarios ?? new Usuarios({ config });
+    this.ultimoAvisoRango = -Infinity;
     this.cooldowns = new Cooldowns();
     const s = config.antiSpam;
     this.antiSpam = new AntiSpam({ maxMensajes: s.maxMensajes, ventanaMs: s.ventanaSeg * 1000, silencioMs: s.silencioSeg * 1000 });
@@ -45,6 +46,7 @@ export class Juego {
     this.lobby = { inscritos: [], espera: [] };
     this.carrera = null;
     this.resultados = null;
+    this.avisoRangoPendiente = false;
     this.ultimaNarracionLider = -Infinity;
     this.proxCharlaCarrera = 0;
     this.eventos = [];
@@ -78,7 +80,7 @@ export class Juego {
     if (evt.tipo === 'chat') return this.manejarChat(evt);
     if (evt.tipo === 'join') return this.manejarLlegada(evt);
     if (evt.tipo === 'viewers') return this.publico.setEspectadores(evt.valor);
-    // gift / like / follow: cableados hasta aquí, sin efecto todavía (Fase 7).
+    // gift / like / follow: recibidos sin alterar la carrera. Regalos: planificador preparado en regalos.js.
   }
 
   /** Alguien entró a mirar: el público decide si se le saluda (pocos espectadores = a todos). */
@@ -106,7 +108,15 @@ export class Juego {
       return;
     }
 
-    this.usuarios.tocar(userId, nombre);
+    const rangoAntes = this.usuarios.obtener(userId)?.rango ?? this.cfg.perfiles.rangos[0].nombre;
+    const perfil = this.usuarios.tocar(userId, nombre);
+    if (perfil.rango !== rangoAntes) {
+      this.emitir('subeRango', { nombre, rango: perfil.rango });
+      this.alFeed('subeRango', { nombre, rango: perfil.rango });
+      const auto = this.carrera?.autos.find(a => a.userId === userId);
+      if (auto) Object.assign(auto, this.usuarios.apariencia(userId));
+      this.avisoRangoPendiente = true;
+    }
     this.publico.alComentar(this.t, userId, nombre);
 
     // 2) En LOBBY cualquier mensaje inscribe. Durante la carrera/resultados, se anota para la próxima.
@@ -117,7 +127,7 @@ export class Juego {
     const c = parsearComando(texto);
     if (c) {
       const def = this.cfg.comandos[c.cmd];
-      if (def && def.fases.includes(this.fase)) this.ejecutarComando(c.cmd, def, userId, nombre);
+      if (def && def.fases.includes(this.fase)) this.ejecutarComando(c.cmd, def, userId, nombre, c.args);
       return; // inválido o fuera de fase: se ignora sin ruido
     }
 
@@ -128,7 +138,21 @@ export class Juego {
     }
   }
 
-  ejecutarComando(cmd, def, userId, nombre) {
+  ejecutarComando(cmd, def, userId, nombre, args = []) {
+    if (['carrera', 'fantasma', 'equipo'].includes(def.tipo)) {
+      const a = this.carrera?.autos.find(a => a.userId === userId);
+      if (!a || this.carrera.estado !== 'corriendo' || (def.tipo === 'fantasma' ? a.estado !== 'destruido' : a.estado !== 'vivo')) return;
+      if (def.tipo === 'equipo' && !this.cfg.equipos.activo) return;
+      const r = this.cooldowns.restante(cmd, userId, this.t);
+      const resultado = r.ms ? { ok: false, motivo: 'cooldown' } : this.carrera.accion(a.id, cmd, args);
+      if (!resultado.ok) {
+        this.emitir('cooldown', { cmd, seg: Math.ceil(r.ms / 1000), motivo: resultado.motivo, nombre, autoId: a.id });
+        if (r.ms) this.lucho.avisoCooldown(this.t, cmd, Math.ceil(r.ms / 1000), nombre);
+        return;
+      }
+      this.cooldowns.registrar(cmd, userId, this.t, { usuarioMs: (def.cooldownUsuarioSeg ?? 0) * 1000 });
+      return;
+    }
     const r = this.cooldowns.restante(cmd, userId, this.t);
     if (r.ms > 0) {
       const seg = Math.ceil(r.ms / 1000);
@@ -228,7 +252,7 @@ export class Juego {
 
   /** Arma la parrilla (con bots de relleno si hay pocos) y arranca la cuenta regresiva. */
   iniciarCarrera(humanos) {
-    const pilotos = humanos.map((p, i) => ({ id: i + 1, userId: p.userId, nombre: p.nombre, modelo: p.modelo, color: p.color, numero: p.cupo, bot: false }));
+    const pilotos = humanos.map((p, i) => ({ id: i + 1, userId: p.userId, nombre: p.nombre, modelo: p.modelo, color: p.color, numero: p.cupo, bot: false, ...this.usuarios.apariencia(p.userId) }));
     const faltan = Math.max(0, this.cfg.fases.rellenarHasta - pilotos.length);
     const nombresBot = [...this.cfg.bots.nombres].sort(() => this.rng() - 0.5);
     for (let k = 0; k < faltan; k++) {
@@ -237,6 +261,9 @@ export class Juego {
     }
     const semilla = Math.floor(this.rng() * 1e9);
     this.carrera = new Carrera({ config: this.cfg, pista: generarPista(this.cfg, semilla), pilotos, rng: this.rng });
+    this.cooldowns.limpiar();
+    this.ultimaReaccion = -Infinity;
+    this.proximoUltimo = this.t + this.cfg.carrera.narrarUltimoCadaSeg * 1000;
     this.fase = 'CARRERA';
     this.faseHasta = null;
     this.resultados = null;
@@ -255,28 +282,37 @@ export class Juego {
     for (const ev of c.eventos) {
       const auto = ev.autoId ? c.autoPorId(ev.autoId) : null;
       const nombre = auto?.nombre;
+      if (['turbo','escudo','escudoRoto','reparar','bomba','venganza','aceite','derrape','esquivar','esquivarExito','fantasmaLanza','equipo'].includes(ev.tipo)) {
+        this.emitir(ev.tipo, { ...ev, nombre });
+        this.alFeed(ev.tipo, { nombre, objetivo: c.autoPorId(ev.objetivoId)?.nombre ?? '', equipo: ev.equipo });
+        this.narrarReaccionCarrera(ev.tipo);
+        continue;
+      }
       switch (ev.tipo) {
         case 'ya':
           this.lucho.narrar(this.t, 'carreraArranque', {}, 'importante');
           this.emitir('ya');
           break;
         case 'aviso':
-          this.lucho.narrar(this.t, `aviso_${ev.obstaculo}`, {}, 'reaccion');
-          this.emitir('aviso', { obstaculo: ev.obstaculo, id: ev.id });
+          this.narrarReaccionCarrera(`aviso_${ev.obstaculo}`);
+          this.emitir('aviso', { obstaculo: ev.obstaculo, obstaculoId: ev.id });
           break;
         case 'golpe':
+          if (ev.atacanteId && ev.atacanteId !== ev.autoId) {
+            const autor = c.autoPorId(ev.atacanteId);
+            if (autor?.userId) this.usuarios.sumar(autor.userId, 'danoCausado', ev.dano);
+          }
           this.emitir('golpe', { autoId: ev.autoId, obstaculo: ev.obstaculo, dano: ev.dano });
           break;
         case 'explosion':
-          this.lucho.narrar(this.t, 'explosion', {}, 'reaccion');
+          this.narrarReaccionCarrera('explosion');
           this.emitir('explosion', { autoId: ev.autoId, nombre });
           this.alFeed('explosion', { nombre });
           if (auto?.userId) this.usuarios.sumar(auto.userId, 'explosiones');
           break;
         case 'lider':
-          if (this.t - this.ultimaNarracionLider >= this.cfg.carrera.narrarLiderCadaSeg * 1000) {
-            if (this.lucho.narrar(this.t, 'liderCambio', { nombre }, 'reaccion')) this.ultimaNarracionLider = this.t;
-          }
+          this.alFeed('adelantamiento', { nombre });
+          this.narrarReaccionCarrera('adelantamiento');
           this.emitir('lider', { autoId: ev.autoId, nombre });
           break;
         case 'meta':
@@ -290,6 +326,11 @@ export class Juego {
       }
     }
     c.eventos = [];
+    if (c.estado === 'corriendo' && this.t >= this.proximoUltimo) {
+      const ultimo = c.ranking().filter(a => a.estado === 'vivo').at(-1);
+      if (ultimo) { this.alFeed('ultimoPuesto', { nombre: ultimo.nombre }); this.narrarReaccionCarrera('ultimoPuesto'); }
+      this.proximoUltimo = this.t + this.cfg.carrera.narrarUltimoCadaSeg * 1000;
+    }
     // Pre-genera la voz del probable ganador cuando el líder se acerca a la meta.
     const lider = c.autoPorId(c.liderId);
     if (lider && lider.estado === 'vivo' && lider.y > c.pista.largo * 0.85) this.lucho.prepararFrase('carreraMeta', { nombre: lider.nombre }, 'grito');
@@ -298,6 +339,11 @@ export class Juego {
       this.lucho.narrar(this.t, 'carreraCharla');
       this.proxCharlaCarrera = this.t + this.lucho.rango(this.cfg.carrera.charlaCadaSeg);
     }
+  }
+
+  narrarReaccionCarrera(evento) {
+    if (this.t - this.ultimaReaccion < this.cfg.carrera.narrarReaccionCadaSeg * 1000) return;
+    if (this.lucho.narrar(this.t, evento, {}, 'reaccion')) this.ultimaReaccion = this.t;
   }
 
   /** Puntos, podio, burla al último y estadísticas rápidas. */
@@ -312,13 +358,14 @@ export class Juego {
         this.usuarios.sumar(a.userId, 'carreras');
         if (i === 0 && a.estado === 'meta') this.usuarios.sumar(a.userId, 'victorias');
       }
-      return { id: a.id, pos: i + 1, nombre: a.nombre, modelo: a.modelo, color: a.color, numero: a.numero, estado: a.estado, puntos, bot: !!a.bot };
+      return { id: a.id, pos: i + 1, nombre: a.nombre, modelo: a.modelo, color: a.color, numero: a.numero, estado: a.estado, puntos, bot: !!a.bot, ...this.usuarios.apariencia(a.userId), victorias: this.usuarios.obtener(a.userId)?.victorias ?? 0, puntosTotal: this.usuarios.obtener(a.userId)?.puntos ?? 0 };
     });
     const max = (campo) => rk.reduce((m, a) => (a[campo] > (m?.[campo] ?? -1) ? a : m), null);
     const masDano = max('danoRecibido');
     const masGolpes = max('golpes');
     const ultimo = rk[rk.length - 1];
     this.resultados = {
+      rankings: this.usuarios.rankings(),
       filas,
       podio: filas.slice(0, 3),
       ultimo: ultimo ? { nombre: ultimo.nombre, estado: ultimo.estado } : null,
@@ -372,6 +419,14 @@ export class Juego {
   update(dt) {
     this.t += dt;
     this.lucho.update(this.t, dt, this.fase);
+    // El ascenso se celebra al quedar libre la voz: abrir el lobby no lo pisa en el mismo chat.
+    if (this.avisoRangoPendiente && !this.lucho.hablando(this.t) &&
+        this.t - this.ultimoAvisoRango >= this.cfg.perfiles.rangoAvisoCadaSeg * 1000) {
+      if (this.lucho.narrar(this.t, 'subeRango', {}, 'reaccion')) {
+        this.avisoRangoPendiente = false;
+        this.ultimoAvisoRango = this.t;
+      }
+    }
     this.atenderPublico();
 
     if (this.fase === 'LOBBY') {
@@ -433,11 +488,12 @@ export class Juego {
       escalaTiempo: this.escalaTiempo,
       fase: this.fase,
       espectadores: this.publico.espectadores,
+      rankings: this.usuarios.rankings(),
       faseRestanteMs: this.faseHasta ? Math.max(0, Math.round(this.faseHasta - this.t)) : null,
       lucho: this.lucho.snapshot(this.t, this.fase),
       cooldowns,
       lobby: {
-        inscritos: this.lobby.inscritos.map((p) => ({ nombre: p.nombre, cupo: p.cupo, modelo: p.modelo, color: p.color })),
+        inscritos: this.lobby.inscritos.map((p) => ({ nombre: p.nombre, cupo: p.cupo, modelo: p.modelo, color: p.color, ...this.usuarios.apariencia(p.userId) })),
         espera: this.lobby.espera.length,
         max: this.cfg.fases.maxJugadores,
       },

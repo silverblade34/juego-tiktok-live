@@ -107,3 +107,41 @@ test('el estilo de pregrabado coincide con el que usa Lucho para cada evento imp
   for (const ev of ['balde', 'corneta', 'cafe', 'cooldown', 'explosion', 'flatulencia']) assert.equal(estiloDe(ev), 'normal', ev);
   assert.equal(estiloDe('manta'), 'dormido');
 });
+
+test('segmentación separa la reacción del remate sin perder palabras ni tildes', async()=>{
+  const {segmentarVoz}=await import('../voz/texto.js');
+  const texto='¡Así no se despierta a un caballero! Primero un besito, después el balde.';
+  assert.deepEqual(segmentarVoz(texto,85),['¡Así no se despierta a un caballero!','Primero un besito, después el balde.']);
+  const largo='¡Hola compadre! '+Array(40).fill('carretera').join(' ')+'.';
+  const partes=segmentarVoz(largo,85);assert.ok(partes.every(p=>p.length<=85));
+  assert.equal(partes.join(' '),largo);
+  assert.deepEqual(segmentarVoz('¡Uy! Está helada.',85,12),['¡Uy! Está helada.']);
+  assert.deepEqual(segmentarVoz('Esta es la primera oración. ¡Ay!',85,12),['Esta es la primera oración. ¡Ay!']);
+  assert.deepEqual(segmentarVoz('',85),[]);
+  assert.deepEqual(segmentarVoz('... ¡...! Hola... ...',85),['Hola...']);
+});
+test('síntesis clonada usa oraciones cortas, temperatura acotada y semilla estable',async t=>{
+  const {Voz}=await import('../voz.js');const os=await import('node:os');const path=await import('node:path');
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'paradero-voz-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));
+  const v=new Voz({config,raiz:dir});v.dirCache=dir;const pedidos=[];
+  const wav=Buffer.alloc(48044);wav.writeUInt32LE(48000,28);
+  v.worker={listo:true,pedir:async d=>{pedidos.push(d);fs.writeFileSync(d.archivo,wav);}};
+  await v.regenerar('¡Primer saludo! Después el remate.','grito');
+  assert.deepEqual(pedidos[0].segmentos,['¡Primer saludo!','Después el remate.']);
+  assert.equal(pedidos[0].temperatura,config.voz.clon.sintesis.temperaturaMax);
+  assert.equal(pedidos[0].semilla,config.voz.clon.sintesis.semilla);
+  assert.equal(pedidos[0].pausaMs,config.voz.clon.sintesis.pausaMs);
+  assert.equal(pedidos[0].velocidad,config.voz.estilos.grito.velocidad);
+  assert.equal(pedidos[0].controlDuracion.reintentos,2);
+});
+test('regenerar reemplaza la caché y cambia la URL para evitar reutilizar el audio defectuoso',async t=>{
+  const {Voz}=await import('../voz.js');const os=await import('node:os');const path=await import('node:path');
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'paradero-cache-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));
+  const v=new Voz({config,raiz:dir});v.dirCache=dir;const wav=Buffer.alloc(48044);wav.writeUInt32LE(48000,28);
+  const archivo=v.archivoDe('clon','Hola.','normal');fs.writeFileSync(archivo,wav);fs.utimesSync(archivo,1,1);
+  const vieja=v.enCache('Hola.','normal');let llamadas=0;
+  v.worker={listo:true,pedir:async d=>{llamadas++;fs.writeFileSync(d.archivo,wav);}};
+  const nueva=await v.regenerar('Hola.','normal');assert.equal(llamadas,1);assert.notEqual(nueva.url,vieja.url);assert.equal(nueva.durMs,1000);
+  const url=new URL(nueva.url,'http://localhost');assert.match(url.pathname,/\/voz\/[a-f0-9]{40}\.wav$/);assert.ok(url.searchParams.has('v'));
+  assert.equal((await v.pedir('Hola.','normal')).url,nueva.url);assert.equal(llamadas,1);
+});

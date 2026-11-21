@@ -19,5 +19,5 @@ while (voz.worker && !voz.worker.listo && Date.now() - inicio < 180000) await ne
 const t0 = Date.now();
 const r = await voz.pedir(texto, estilo);
 console.log(`[voz] "${texto}" (${estilo}) listo en ${Date.now() - t0} ms, dura ${(r.durMs / 1000).toFixed(1)} s`);
-const archivo = path.join(RAIZ, 'data', 'voz-cache', path.basename(r.url));
+const archivo = path.join(RAIZ, 'data', 'voz-cache', path.basename(new URL(r.url, 'http://local').pathname));
 execFile('afplay', [archivo], () => { voz.detener(); process.exit(0); });
