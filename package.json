@@ -1,0 +1,22 @@
+{
+  "name": "paradero-final",
+  "version": "0.1.0",
+  "description": "El Paradero Final — juego de carreras para TikTok LIVE controlado por el chat",
+  "type": "module",
+  "private": true,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "sim": "node server/index.js --sim",
+    "test": "node --test server/tests/",
+    "voz:instalar": "python3 -m venv .venv-voz && .venv-voz/bin/pip install --upgrade edge-tts",
+    "voz:probar": "node server/voz-probar.js",
+    "voz:instalar-clon": "python3.11 -m venv .venv-xtts && .venv-xtts/bin/pip install -r server/voz/requirements-clon.txt",
+    "voz:pregrabar": "node server/voz-pregrabar.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

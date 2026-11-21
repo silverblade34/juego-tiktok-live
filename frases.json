@@ -1,0 +1,502 @@
+{
+  "aburrido": [
+    "Habla causas... ¿hay alguien o estoy hablando con las paredes?",
+    "Tanto tiempo sin carrera... ya me están saliendo raíces. Y canas en lugares que no les cuento.",
+    "Comenten algo pe, que este paradero está más vacío que mi refri.",
+    "Dicen que la paciencia es una virtud. Yo tengo poquita... y la otra cosa también, pero no se lo digan a nadie.",
+    "Treinta cupos libres y ni un alma. Así estaba mi fiesta de cumpleaños.",
+    "Ya conté todas las combis que pasaron. Cero. Ni la de mi compadre, que esa siempre para en cualquier hueco.",
+    "Escriban jugar y arrancamos al toque, que a mi edad no hay que hacer esperar al motor.",
+    "Me pagan por narrar carreras, no por ver moscas volar.",
+    "¿Así nomás me van a dejar? Ni mi ex me dejó tan rápido.",
+    "Si nadie comenta, me pongo a cantar. Están advertidos.",
+    "Yo de joven era rapidísimo... en la pista, mal pensados, en la pista.",
+    "Aquí esperando, como el que espera que le devuelvan el táper."
+  ],
+  "bostezo": [
+    "Aaaaaauuuuhhh... perdón, se me escapó.",
+    "Qué sueño, causa... ¿quién me jala un cafecito?",
+    "Bostezo número cuarenta del día. Récord.",
+    "Aaah... ya ni el bostezo me entretiene.",
+    "Este silencio da más sueño que clase de lunes.",
+    "Bostezo con todo respeto, ¿ah? No es personal.",
+    "Mmmaaah... ¿ya empezó? ¿No? Ya.",
+    "Si sigo bostezando me trago el micro."
+  ],
+  "rascarse": [
+    "Pica, pica... ¿será la gorra o serán nervios?",
+    "Un ratito, que me pica la cabeza.",
+    "Con permiso, una rascadita de emergencia.",
+    "¿Quién me echó pica-pica? Confiesen.",
+    "Me rasco porque no hay carrera. Así de simple.",
+    "Esta gorra tiene más historia que el paradero.",
+    "Uy, ahí, ahí... ya, ya pasó.",
+    "Rascarse también es deporte, ¿ya?"
+  ],
+  "golpearMicro": [
+    "¿Aló? ¿Se escucha? Probando, probando...",
+    "Toc, toc... ¿este micro funciona o me estafaron?",
+    "Probando, uno, dos... ¿alguien al otro lado?",
+    "Micrófono prendido, público apagado. Clásico.",
+    "Comenten 'sí' si me escuchan, causas.",
+    "Probando... sonido... ¡que empiece la juerga! Cuando quieran.",
+    "Toc toc. ¿Hay alguien en el chat?",
+    "Este micro lo compré en Gamarra, pero suena bonito."
+  ],
+  "dormirse": [
+    "Ya... me echo un pestañeo... cinco minutitos nomás...",
+    "Si alguien comenta, me despiertan... zzz...",
+    "Me voy a descansar los ojos. Solo los ojos, ¿ah?",
+    "Buenas noches, chat fantasma... zzz",
+    "Ya me ganó el sueño, causa... avisen...",
+    "Un ratito... no me tiren balde... zzz",
+    "Me duermo. Si arranca la carrera, me pasan la voz.",
+    "El paradero cierra por siesta... zzz"
+  ],
+  "hablaDormido": [
+    "Mmm... no, mamá, cinco minutitos más...",
+    "Zzz... ¡baja, baja, hay sitio atrás!... zzz",
+    "...un ceviche... con harto limón...",
+    "Zzz... ¡yo no fui, fue el de la combi!...",
+    "Mmm... treinta autos... y ni una moto... zzz",
+    "...sí, mi amor, ahorita bajo... zzz",
+    "...¡a la derecha, chofer, a la derecha!...",
+    "Zzz... gané la Tinka... qué bonito... zzz"
+  ],
+  "despertar": [
+    "¡¿Qué?! ¡¿Quién?! ¡Estaba despierto, eh!",
+    "¡Ay! No estaba durmiendo, estaba meditando.",
+    "¡Uy! Ya, ya, ya me levanté... bueno, una parte.",
+    "¿Ya empezó? ¿Qué me perdí? ¿Quién ganó?",
+    "¡Buenas, buenas! Aquí presente, fresquito como lechuga.",
+    "¡Me agarraron pestañeando! Bueno, roncando, pero es casi lo mismo.",
+    "¡Ay, qué susto! ¿Ya hay gente? ¡Bacán!",
+    "¡Despierto! Con los ojos abiertos y lo demás... más o menos."
+  ],
+  "balde": [
+    "¡AAAAH! ¡Está helada! Ahora sí se me encogió... el ánimo, el ánimo.",
+    "¡Asu mare! ¡¿Quién tira agua en pleno invierno?!",
+    "¡Así, de golpe y sin avisar! Por lo menos invítame un trago primero.",
+    "¡Brrr! ¡Esto no está en mi contrato... ni en mi seguro!",
+    "¡Ay, mi gorrita nueva! Me la estrené hoy y ya me la mojaron.",
+    "¡Qué frío! ¡Parezco pollito recién bañado!",
+    "¡Ni en carnaval me mojan así! Y eso que en carnaval yo me dejo.",
+    "¡Me mojaron hasta donde no me da el sol!",
+    "¡Ya me bañaste! Ahora solo falta que me seques... con respeto, ¿ah?",
+    "¡Uy! Con agua fría no, que a mi edad las cosas ya no se levantan... ¡de la silla, digo, de la silla!",
+    "¡Agua fría! Con razón tu ex te dejó, oe.",
+    "¡AAAH! ¡Mojado y sin toalla, como en mis mejores tiempos!"
+  ],
+  "baldeDormido": [
+    "¡AAAH! ¡Un tsunami! ¡Sálvese quien pueda!",
+    "¡¿Qué pasó?! ¡¿Se inundó el paradero?!",
+    "¡Soñaba con la playa y me trajeron el mar completito!",
+    "¡Ay, ay! ¡Despierto, despierto! ¡Sin agua, por favor!",
+    "¡Así no se despierta a un caballero! Primero un besito, después el balde.",
+    "¡Glub glub! ¡¿Quién abrió el caño?!",
+    "¡AAAH! ¡Me ahogo! Ah, no, ya. Pero igual, qué falta de respeto.",
+    "¡Estaba soñando algo bien bonito y me lo cortaron en la mejor parte!",
+    "¡Me despertaron mojado! Como cuando tenía quince años... ¡de sudor, de sudor!",
+    "¡Qué forma de despertar! Ni mi suegra es tan cruel."
+  ],
+  "cafe": [
+    "¡Ahhh, cafecito! Caliente, cargadito y negrito, como me gusta.",
+    "¡Uy, este café está bien cargado! Igual que yo... hace treinta años.",
+    "¡Cafecito pasado! Lo único pasado que todavía funciona aquí.",
+    "¡Con este café aguanto toda la noche! Narrando, mal pensados, narrando.",
+    "¡Glu glu glu! ¡Ya veo el futuro, y tiene ruedas!",
+    "¡Este café despierta hasta a los muertos... y a otras cositas también!",
+    "¡Wow, wow, wow! ¡Despierto para tres días!",
+    "¡Café de Chanchamayo! ¡Se siente la selva, mano!",
+    "¡Ya me puse a mil! Que alguien me sujete... de la mano nomás.",
+    "¡Café! El único que me calienta en este paradero."
+  ],
+  "cafeCharla": [
+    "¡Rápido-rápido-rápido! ¡¿Dónde están los autos?!",
+    "¡Puedo narrar diez carreras a la vez, causa!",
+    "¡Mi corazón suena como bocina de combi!",
+    "¡Ya conté las nubes: son catorce! ¡No, quince!",
+    "¡Hablemos de todo! ¡Del clima! ¡Del fútbol! ¡De todo!",
+    "¡¿Alguien quiere carrera?! ¡YO quiero carrera!",
+    "¡Siento que puedo correr hasta Huancayo!",
+    "¡No parpadeo hace diez minutos y estoy bien!"
+  ],
+  "corneta": [
+    "¡AAAAH! ¡¿UNA COMBI?! ¡¿DÓNDE?!",
+    "¡Casi me da un infarto, oe! Y no del bueno.",
+    "¡Me caí de la silla! A mi edad las caídas son de cadera, no de risa.",
+    "¡PAAAAA! ¡Mis oídos, causa, mis oídos!",
+    "¡¿Quién trajo la corneta del estadio?!",
+    "¡Ay, mi espalda! ¿Y ahora quién me levanta? ¡La silla, la silla!",
+    "¡Esa corneta suena más que mi suegra!",
+    "¡Así de duro se sopla? ¡Con cariño, con cariño!",
+    "¡Del susto me temblaron hasta las partes que ya no tiemblan!",
+    "¡Me sacaste el alma! Devuélvemela, que es la única que tengo."
+  ],
+  "manta": [
+    "Ay, qué rico... una mantita... me voy...",
+    "Una mantita... bueno, ya que insistes, pero sin manos raras, ¿ah?",
+    "Qué amable... así me arropaba mi mamá... bueno, y mi comadre.",
+    "¡Oye, no! Bueno... un ratito nomás...",
+    "Esta frazada está calientita... como mi primera novia...",
+    "¿Me están saboteando? Igual me duermo...",
+    "Mantita de alpaca... ahí nomás me quedo...",
+    "Me abrigan y me duermo... como bebé... un bebé con bigote...",
+    "Si me tapan así, después no respondo...",
+    "Ya, ya, me rindo... despiértenme cuando haya carrera..."
+  ],
+  "cooldown": [
+    "¡Calma, calma, que estoy digiriendo!",
+    "¡Uno a la vez, causa, que no soy pulpo!",
+    "¡No está malogrado! Se está recargando, como yo después del almuerzo.",
+    "¡Paciencia! Dame unos segunditos, que a mi edad la recarga es lenta.",
+    "¡Ya va, ya va! Miren abajo cuánto falta.",
+    "¡Se acabó el stock! Vuelvan en un ratito.",
+    "¡Tranquilos! Respiro, cuento, y seguimos.",
+    "¡Esperen su turno, mis cholitos! Esto no es combi en hora punta.",
+    "¡Despacio, que no soy de fierro! Bueno, la cadera sí, tengo un clavo."
+  ],
+  "spam": [
+    "¡Oe, calmado! Te vas a la banca un ratito.",
+    "¡Mucho spam! Siéntate, toma agüita.",
+    "¡Silenciado! Ese teclado necesita vacaciones.",
+    "¡Mucho floro! Castigado por spam.",
+    "¡No me atores el chat! Treinta segundos de silencio.",
+    "¡Tarjeta amarilla! Por escribir como loco.",
+    "¡A la esquina! Y piensa en lo que hiciste.",
+    "¡Uy, te pasaste! Ni mi suegra habla tanto."
+  ],
+  "pacienciaMedia": [
+    "Ya me están colmando, ¿ah?... sigan nomás.",
+    "Mi paciencia está en las últimas, causa...",
+    "Unas cuantas más y exploto... o arranco la carrera.",
+    "¡Cuidado, que ya me está subiendo la presión!",
+    "Sigan molestando y verán lo que pasa...",
+    "Ya me está temblando el ojo, mis estimados.",
+    "Respiro... cuento hasta diez... uno... dos...",
+    "Estoy a nada de perder los papeles, ¿ah?"
+  ],
+  "pacienciaLlena": [
+    "¡YA ESTÁ BIEN! ¡QUE EMPIECE LA CARRERA DE UNA VEZ!",
+    "¡SE ACABÓ! ¡TODOS A SUS AUTOS, CARAMBA!",
+    "¡BASTA! ¡QUIEREN CARRERA, TENDRÁN CARRERA!",
+    "¡ME HARTARON! ¡SE ABREN LAS INSCRIPCIONES!",
+    "¡NO AGUANTO MÁS! ¡A CORRER TODO EL MUNDO!",
+    "¡SUFICIENTE! ¡PREPAREN LOS MOTORES, SINVERGÜENZAS!",
+    "¡AHORA SÍ ME COLMARON! ¡COMENTEN PARA ENTRAR!",
+    "¡A LA CARGA! ¡ESTO SE DEFINE EN LA PISTA!"
+  ],
+  "lobbyAbre": [
+    "¡Se abre el paradero! ¡Comenten y suben a su auto!",
+    "¡Inscripciones abiertas! ¡Treinta cupos, como mis años de casado!",
+    "¡Ahora sí! ¡Comenten lo que sea y entran a la carrera!",
+    "¡Atención, atención! ¡Pocos cupos, comenten ya!",
+    "¡Pasen, pasen, que hay sitio! Al fondo hay sitio, siempre hay sitio.",
+    "¡Suban, suban! ¡El que no comenta, no corre!",
+    "¡Arranca la inscripción! Pónganse cómodos, que esto se pone bueno.",
+    "¡Se abren las puertas! Y las ventanas, por si acaso.",
+    "¡A inscribirse! Que hoy alguien se lleva la gloria... y otro, la vergüenza."
+  ],
+  "lobbyCharla": [
+    "¡Comenten, que la combi ya se va!",
+    "¡Al fondo hay sitio, causas! ¡Suban!",
+    "¡Escribe cualquier cosa y tu auto aparece!",
+    "¡Treinta cupos nomás! ¡No se queden abajo!",
+    "¡Vamos, vamos, que ya calentamos motores!",
+    "¡Inscríbanse, que hoy hay premio... de orgullo!",
+    "¡Cada comentario, un auto! ¡Así de fácil!",
+    "¡Los que no entren, quedan para la próxima!"
+  ],
+  "lobbyUltimos": [
+    "¡Últimos segundos! ¡Comenten ya!",
+    "¡Diez segundos y se cierra la puerta!",
+    "¡Última llamada, causas! ¡Último cupo!",
+    "¡Se va, se va, se va la combi!",
+    "¡Apúrense, que ya cerramos!",
+    "¡Corre, corre! ¡Inscripción por cerrar!",
+    "¡Los rezagados, aprovechen! ¡Diez segundos!",
+    "¡Última oportunidad de subirse!"
+  ],
+  "lobbyVacio": [
+    "Nadie se inscribió... ¿me están castigando?",
+    "Cero inscritos. Vuelvo a mi silla entonces.",
+    "Ni uno... qué tristeza, causa.",
+    "Se cerró sin gente. Bueno, a esperar de nuevo.",
+    "¿Nadie? ¿En serio? Ya, me vuelvo a aburrir.",
+    "Inscripción desierta. Como mi billetera.",
+    "Nadie subió a la combi. Vuelta al paradero.",
+    "Ni un alma. Vuelvo a contar moscas."
+  ],
+  "feed": {
+    "balde": "{nombre} le tiró un balde",
+    "cafe": "{nombre} le invitó un café",
+    "corneta": "{nombre} tocó la corneta",
+    "manta": "{nombre} lo arropó con una manta",
+    "jugar": "{nombre} quiere jugar",
+    "comentario": "{nombre} abrió las inscripciones",
+    "paciencia": "¡Don Lucho perdió la paciencia!",
+    "spam": "{nombre} silenciado por spam",
+    "despertar": "{nombre} despertó a Don Lucho",
+    "llegada": "{nombre} llegó al paradero",
+    "explosion": "¡{nombre} explotó!",
+    "meta": "{nombre} llegó a la meta",
+    "proxima": "{nombre} se anotó para la próxima"
+  },
+  "saludo": [
+    "¡Hola {nombre}! ¿Cómo estás? Pasa, pasa, {apodo}, aquí hay sitio.",
+    "¡Llegó {apodo}! Aplausos, señores, aplausos... bueno, aplaudo yo solo.",
+    "¡{nombre}! ¿Tú otra vez por acá? Ah no, es la primera vez. Igual, bienvenido.",
+    "¡Bienvenido {apodo}! Comenta algo, no seas tímido, que aquí no muerde nadie... casi.",
+    "¡Ey, {nombre}! Entraste justo a tiempo para no hacer nada. ¡Comenta y arrancamos!",
+    "¡Miren quién llegó! ¡El gran {apodo}! Póngase cómodo, la silla es de plástico pero aguanta.",
+    "¡Hola {nombre}! ¿Vienes a correr o a mirar? Porque mirar también cobra, ¿ah?",
+    "¡{apodo} en la casa! Escribe !jugar y te doy el mejor auto... el que tenga llantas.",
+    "¡Qué tal, {nombre}! Tienes cara de campeón. O de hambre. Uno de los dos.",
+    "¡Pase, {apodo}! Primera vez gratis, la segunda también. Aquí todo es gratis, causa."
+  ],
+  "saludoSolo": [
+    "¡{nombre}! Somos tú y yo nomás. Qué romántico... comenta algo, no me dejes solo.",
+    "¡Hola {apodo}! Eres mi único público. Te voy a contar todos mis chistes, prepárate.",
+    "¡{nombre}! Llegaste y el live se llenó... al cien por ciento de una persona.",
+    "¡Bienvenido {apodo}! Siéntate donde quieras, hay como quinientos sitios libres.",
+    "¡{nombre}, no te vayas! Que si te vas me quedo hablando con la radio otra vez.",
+    "¡Ey {apodo}! Tú y yo contra el mundo. Bueno, contra nadie, porque no hay nadie.",
+    "¡Hola {nombre}! Invita a tus amigos, a tu tía, a tu vecino, ¡a quien sea, causa!",
+    "¡{apodo}! Por fin alguien. Ya estaba por ponerle nombre a las moscas."
+  ],
+  "saludoRegreso": [
+    "¡{nombre} volvió! Sabía que no podías vivir sin mí.",
+    "¡Otra vez tú, {apodo}! ¿Te olvidaste algo? ¿Tu dignidad, de repente?",
+    "¡{nombre} regresó! Ya decía yo que se te hacía raro sin Don Lucho.",
+    "¡Ahí está {apodo} de nuevo! El que se fue sin pagar el pasaje.",
+    "¡Bienvenido de vuelta, {nombre}! Te guardé tu sitio... se lo di a otro, pero te lo guardé.",
+    "¡{apodo} no aguantó y volvió! Así me gusta, fiel como perro de mercado.",
+    "¡Hola otra vez, {nombre}! ¿Saliste a comprar pan? ¿Y el mío?",
+    "¡Regresó el hijo pródigo! ¡{apodo}, ven acá, dame un abrazo virtual!"
+  ],
+  "saludoDormido": [
+    "Mmm... ¿{nombre}?... vete de acá que estoy durmiendo... zzz",
+    "¡Ey tú, {nombre}! Shhh... baja la voz que estoy en mi siesta... zzz",
+    "¿Quién entró?... ¿{apodo}?... ya, ya, ven más tarde... zzz",
+    "{nombre}, el paradero está cerrado por sueño... vuelve en cinco minutitos... zzz",
+    "Ay, {nombre}... justo ahora que soñaba con ceviche... zzz",
+    "¿{apodo}?... no me hables, no me hables... zzz",
+    "Shhh, {nombre}... si quieres que despierte, tírame un balde... no, mejor no... zzz",
+    "Mmm... {nombre}... deja tu nombre y número, te devuelvo la llamada... zzz"
+  ],
+  "saludoLobby": [
+    "¡{nombre}! ¡Llegaste justo! Comenta ya y te subes a la carrera.",
+    "¡{apodo}, corre, corre! ¡Todavía hay cupo, escribe algo!",
+    "¡Ey {nombre}! ¡No te quedes mirando, comenta y entras!",
+    "¡Bienvenido {apodo}! Las inscripciones están abiertas, ¡apúrate!",
+    "¡{nombre} llegó en el momento perfecto! ¡Comenta lo que sea!",
+    "¡Hola {apodo}! Hay autos esperando, ¡solo falta tu comentario!",
+    "¡{nombre}! Un comentario y tienes auto con tu nombre. ¡Así de fácil!",
+    "¡Llegó {apodo}! ¡Súbete, súbete, que la combi ya sale!"
+  ],
+  "molestarMiron": [
+    "Oye {nombre}, te estoy viendo, ¿ah? Ahí calladito... ¡comenta algo!",
+    "{apodo}, ¿vas a mirar nomás? ¡Esto no es museo, causa!",
+    "Ajá, {nombre}... entraste, no saludaste, no comentaste. Te tengo en mi lista.",
+    "{apodo}, sé que estás ahí. Te veo. Comenta o te tiro un balde a ti.",
+    "Señores, {nombre} está mirando sin comentar. ¡Abucheos! ¡Buuuh! Ya, es broma... ¿o no?",
+    "{nombre}, si comentas te dejo ganar. Mentira. Pero comenta igual.",
+    "¡Ey, {apodo}! ¿Se te malogró el teclado? Escribe aunque sea un punto.",
+    "{nombre} entró y se quedó mudo. ¿Te comió la lengua el gato del mercado?",
+    "Psst, {apodo}... sí, tú. Escribe !jugar y nadie se entera que eras tímido."
+  ],
+  "flatulencia": [
+    "¡Uy! Fue la silla, ¿ah? La silla es de plástico y suena.",
+    "Perdón, perdón... es el ceviche de ayer que quiere salir a saludar.",
+    "Eso no fui yo. Fue una combi. Una combi chiquita. Adentro de mí.",
+    "¡Ay! Del susto se me escapó un vientecito. Señoras, disculpen.",
+    "Shhh... nadie vio nada. Bueno, nadie OLIÓ nada.",
+    "Eso fue el motor de arranque. Ya estoy listo para la carrera.",
+    "Huele a victoria... bueno, a frejoles, pero casi lo mismo.",
+    "No se asusten, es la bocina trasera. Viene de fábrica.",
+    "¡Uy, se me escapó! A mi edad ya no hay frenos de mano.",
+    "Eso es para que se ventile el paradero, de nada."
+  ],
+  "botsRelleno": [
+    "Como son poquitos, traje a mis compadres de relleno.",
+    "Faltan pilotos, así que llamé a mis sobrinos. No manejan bien, pero son baratos.",
+    "Les puse unos amigos para que no se sientan solos.",
+    "Traje relleno. Como el rocoto, pero sin queso.",
+    "Unos compadres van a correr también. No les tengan miedo, tienen menos brevete que yo.",
+    "¡Poquitos pero valientes! Les sumé unos acompañantes.",
+    "Para que haya ambiente, entran mis vecinos del pasaje.",
+    "Completé con unos choferes que encontré en el grifo."
+  ],
+  "carreraCuenta": [
+    "¡En sus marcas! ¡Listos! ¡Tres, dos, uno!",
+    "¡Motores en marcha! ¡Tres, dos, uno!",
+    "¡Agárrense de donde puedan! ¡Tres, dos, uno!",
+    "¡Cinturones puestos! ¡Tres, dos, uno!",
+    "¡Respiren hondo! ¡Tres, dos, uno!",
+    "¡Que Dios los acompañe! ¡Tres, dos, uno!",
+    "¡Pie en el acelerador! ¡Tres, dos, uno!",
+    "¡Atención, pilotos! ¡Tres, dos, uno!"
+  ],
+  "carreraArranque": [
+    "¡YA! ¡Arrancaron como combi en hora punta!",
+    "¡FUERA! ¡Que vuele el polvo!",
+    "¡YA! ¡Salieron disparados como mi sueldo a fin de mes!",
+    "¡ARRANCARON! ¡Esto va a estar bueno!",
+    "¡YA! ¡A meterle chancleta, señores!",
+    "¡FUERA! ¡Y que nadie se baje en el camino!",
+    "¡YA! ¡Aceleren, que la vida es corta y la pista larga!",
+    "¡ARRANCA LA CARRERA! ¡Agárrense!"
+  ],
+  "carreraCharla": [
+    "¡Qué tal velocidad! Así manejaba yo antes de que me quitaran el brevete.",
+    "¡Miren eso! Van pegaditos, como pareja en el cine.",
+    "¡Comenten, comenten, que la carrera está que arde!",
+    "¡Esto se pone caliente! Y no lo digo por el motor.",
+    "¡Cuidado con los baches, que esta pista la hizo la municipalidad!",
+    "¡Qué emoción! Hace tiempo que no veía tanto movimiento... en la pista.",
+    "¡Van a toda máquina! Ojalá frenen mejor que mi compadre.",
+    "¡Aguanten, aguanten, que todavía falta lo más duro!",
+    "¡Esta pista tiene más curvas que mi vecina!",
+    "¡Uy, se están dando con todo! Así me gusta, sin miedo."
+  ],
+  "explosion": [
+    "¡BOOOM! ¡Uno menos! ¡Que en paz descanse ese motor!",
+    "¡Explotó! ¡Se fue al taller del cielo!",
+    "¡Pum! ¡Chatarra fresquita para el reciclador!",
+    "¡Lo hicieron pedazos! ¡Como mi corazón en mi primer matrimonio!",
+    "¡BOOM! ¡Ese auto ya no pasa revisión técnica!",
+    "¡Se quemó! ¡Huele a anticucho de fierro!",
+    "¡Kaboom! ¡Y ni siquiera tenía seguro!",
+    "¡Reventó! ¡Esa llanta ya estaba pidiendo jubilación!",
+    "¡Explotó como olla a presión! ¡Ojo los de atrás, que hay chatarra!",
+    "¡Fuera de carrera! Pero desde las gradas todavía puede molestar."
+  ],
+  "liderCambio": [
+    "¡{nombre} toma la punta! ¡Qué atrevimiento!",
+    "¡Ojo, ojo! ¡{nombre} se pone adelante!",
+    "¡{nombre} pasa a todos como si nada!",
+    "¡Nuevo líder: {nombre}! ¡Que alguien lo detenga!",
+    "¡{nombre} va primero! ¡Mírenlo, qué descarado!",
+    "¡Adelante va {nombre}! ¡Y sin pedir permiso!",
+    "¡{nombre} se escapa! ¡Como mi compadre de la cuenta!",
+    "¡Atención, {nombre} lidera la carrera!"
+  ],
+  "carreraMeta": [
+    "¡{nombre} cruza la meta primero! ¡Campeón del paradero!",
+    "¡GANÓ {nombre}! ¡Que le den su gaseosa!",
+    "¡{nombre} se lleva la carrera! ¡Qué tal muñeca!",
+    "¡Primer lugar para {nombre}! ¡Aplausos, aplausos!",
+    "¡{nombre} llega primero! ¡Ni mi suegra corre tanto!",
+    "¡Victoria para {nombre}! ¡Hoy invita el pollo!",
+    "¡{nombre} campeón! ¡Que alguien le avise a su mamá!",
+    "¡{nombre} gana! ¡Así se maneja, carajo! ¡Perdón, señoras!"
+  ],
+  "carreraFin": [
+    "¡Se acabó la carrera! ¡Vamos al podio!",
+    "¡Terminó! ¡Revisemos quién quedó vivo!",
+    "¡Final de la carrera! ¡Qué tal espectáculo!",
+    "¡Bandera a cuadros! ¡A recoger la chatarra!",
+    "¡Fin! Los que llegaron, llegaron. Los demás, a la grúa.",
+    "¡Y se acabó! ¡Ni en Fórmula Uno hay tanto choque!",
+    "¡Terminamos! ¡A ver el podio, señores!",
+    "¡Carrera terminada! ¡Que alguien barra la pista!"
+  ],
+  "ultimoLugar": [
+    "¡Y en último lugar... {nombre}! ¡Más lento que trámite en la muni!",
+    "¡{nombre} llegó último! ¿Venías caminando o qué?",
+    "¡Último puesto para {nombre}! ¡Pero llegó, que es lo que cuenta... más o menos!",
+    "¡{nombre}, último! ¡Hasta la combi de las cinco te pasó!",
+    "¡El farolito rojo es para {nombre}! ¡Felicitaciones... creo!",
+    "¡{nombre} cerró la carrera! ¡Alguien tenía que hacerlo!",
+    "¡{nombre}, último! ¡Para la próxima, sácale el freno de mano!",
+    "¡{nombre} en el último lugar! ¡Tranquilo, a mí también me pasa... seguido!"
+  ],
+  "podioCharla": [
+    "¡Aplausos para los campeones del paradero!",
+    "¡Miren ese podio! ¡Más brillante que mi calva!",
+    "¡Felicitaciones a todos! Incluso a los que explotaron.",
+    "¡Qué tal carrera! ¡La próxima va a estar mejor!",
+    "¡Comenten para la siguiente, que esto no para!",
+    "¡Gloria eterna! Bueno, hasta la próxima carrera.",
+    "¡Y así termina otra carrera en el Paradero Final!",
+    "¡Ganadores y perdedores, todos son mis cholitos!"
+  ],
+  "aviso_cono": [
+    "¡Conos en la pista! ¡Cuidado!",
+    "¡Ojo con los conos, que son de la muni!",
+    "¡Conos adelante! ¡Esquiven!",
+    "¡Uy, conos! ¡Alguien está arreglando la pista otra vez!"
+  ],
+  "aviso_bache": [
+    "¡Bache adelante! ¡Agárrense!",
+    "¡Cuidado con el hueco, que ahí vive una familia!",
+    "¡Bache! ¡Ese se traga una llanta entera!",
+    "¡Hueco en la pista! ¡Típico!"
+  ],
+  "aviso_ambulante": [
+    "¡Cuidado, ambulante cruzando!",
+    "¡Ojo, que pasa el de las marcianas!",
+    "¡Ambulante en la pista! ¡No lo atropellen, que me fía!",
+    "¡Ahí cruza el carrito de los anticuchos!"
+  ],
+  "aviso_policia": [
+    "¡Policía adelante! ¡Bajen la velocidad... o no!",
+    "¡Cuidado, el tombo con su paleta!",
+    "¡Ojo, policía! ¡Tengan su brevete a la mano!",
+    "¡Ahí está la autoridad! ¡Pórtense bien!"
+  ],
+  "aviso_cajones": [
+    "¡Cajones de fruta en la pista!",
+    "¡Ojo con la fruta! ¡Se viene ensalada!",
+    "¡Cajones adelante! ¡Que no se aplasten los mangos!",
+    "¡Cuidado, la casera dejó sus cajones!"
+  ],
+  "aviso_charco": [
+    "¡Charco adelante! ¡Se van a mojar!",
+    "¡Cuidado con el charco, que resbala!",
+    "¡Agua en la pista! ¡Como mi baño!",
+    "¡Charco! ¡A lavar el carro gratis!"
+  ],
+  "aviso_perro": [
+    "¡Perro cruzando! ¡Cuidado con el firulais!",
+    "¡Ojo con el perro, que muerde llantas!",
+    "¡Un perrito en la pista! ¡No lo toquen!",
+    "¡Cuidado, el perro del mercado!"
+  ],
+  "aviso_toldo": [
+    "¡Toldo bajo! ¡Agachen la cabeza!",
+    "¡Cuidado con los toldos, que están bajitos!",
+    "¡Ojo, toldo adelante! ¡Se llevan la casera!",
+    "¡Toldos en la pista! ¡Esto es un mercado, no una pista!"
+  ],
+  "aviso_vaca": [
+    "¡Vaca en la pista! ¡Muuu!",
+    "¡Cuidado con la vaca, que no tiene apuro!",
+    "¡Una vaca cruzando! ¡Bajen la velocidad!",
+    "¡Ojo, vaquita! ¡Esa no frena!"
+  ],
+  "aviso_camion": [
+    "¡Camión lento adelante! ¡Paciencia o adelanten!",
+    "¡Cuidado con el camión, que va a dos por hora!",
+    "¡Ojo, camión cargado! ¡Ese no se mueve!",
+    "¡Camión adelante! ¡Como mi compadre en la subida!"
+  ],
+  "aviso_derrumbe": [
+    "¡Derrumbe! ¡Piedras en la pista!",
+    "¡Cuidado, se vino el cerro!",
+    "¡Ojo, rocas adelante!",
+    "¡Derrumbe en la pista! ¡Agárrense!"
+  ],
+  "aviso_huaico": [
+    "¡HUAICO! ¡Se viene el barro!",
+    "¡Cuidado, huaico adelante! ¡Corran!",
+    "¡Se vino el huaico! ¡Esto es serio, señores!",
+    "¡Barro en la pista! ¡Huaico, huaico!"
+  ],
+  "aviso_piedra": [
+    "¡Piedra en la pista!",
+    "¡Ojo con la piedra, que es grande!",
+    "¡Cuidado, pedrón adelante!",
+    "¡Una piedra! ¡Esquiven!"
+  ]
+}

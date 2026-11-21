@@ -1,0 +1,179 @@
+{
+  "juego": {
+    "nombre": "EL PARADERO FINAL"
+  },
+  "servidor": {
+    "puerto": 3000,
+    "tickHz": 30,
+    "snapshotHz": 20,
+    "eventosVisiblesSeg": 3
+  },
+  "tiktok": {
+    "usuario": "",
+    "reconexionBaseSeg": 2,
+    "reconexionMaxSeg": 60
+  },
+  "fases": {
+    "lobbySeg": 45,
+    "lobbyAvisoFinalSeg": 10,
+    "resultadosSeg": 15,
+    "pausaTrasResultadosSeg": 3,
+    "maxJugadores": 30,
+    "minJugadores": 3,
+    "rellenarHasta": 6,
+    "abrirLobbyConComentario": true
+  },
+  "lucho": {
+    "durmiendoTrasSeg": 60,
+    "pacienciaMax": 100,
+    "pacienciaDecaePorSeg": 0.3,
+    "pacienciaAvisoMedia": 0.6,
+    "charlaCadaSeg": [8, 15],
+    "hablaDormidoCadaSeg": [14, 26],
+    "cafeCharlaCadaSeg": [2.5, 4],
+    "lobbyCharlaCadaSeg": [7, 11],
+    "hablaBaseSeg": 2.2,
+    "hablaPorCaracterSeg": 0.055,
+    "cafeFactorHabla": 0.55,
+    "hablaMinMostrarSeg": 1.2,
+    "avisoCooldownCadaSeg": 3,
+    "sustoSeg": 1.2,
+    "caidaSeg": 2.8,
+    "enojadoSeg": 4,
+    "cafeSeg": 15,
+    "mojadoSeg": 20,
+    "despertarSustoSeg": 0.8,
+    "probFlatulenciaCorneta": 0.4,
+    "probFlatulenciaAburrido": 0.08,
+    "duracionAccionesSeg": {
+      "bostezo": 2.6,
+      "rascarse": 2.6,
+      "golpearMicro": 2.0,
+      "salto": 1.0,
+      "sorbo": 1.8,
+      "arropar": 1.2,
+      "saludar": 1.8,
+      "abrirOjo": 2.2,
+      "senalar": 2.2
+    }
+  },
+  "voz": {
+    "activa": true,
+    "motor": "clon",
+    "clon": { "referencia": "voz-referencia/cubano.wav", "dispositivo": "cpu", "respaldo": "texto" },
+    "edge": { "voz": "es-CU-ManuelNeural", "respaldo": "mac" },
+    "estilos": {
+      "normal":  { "velocidad": 1.05, "temperatura": 0.7,  "rate": "+8%",  "pitch": "-4Hz",  "factorMac": 1.0 },
+      "cafe":    { "velocidad": 1.35, "temperatura": 0.8,  "rate": "+35%", "pitch": "+6Hz",  "factorMac": 1.4 },
+      "dormido": { "velocidad": 0.85, "temperatura": 0.6,  "rate": "-12%", "pitch": "-10Hz", "factorMac": 0.8 },
+      "grito":   { "velocidad": 1.12, "temperatura": 0.85, "rate": "+14%", "pitch": "+2Hz",  "factorMac": 1.1 }
+    },
+    "mac": { "voz": "Rocko (Español (México))", "palabrasPorMinuto": 185 },
+    "timeoutMs": 20000,
+    "timeoutFondoMs": 60000,
+    "esperaMaxSeg": 12,
+    "colaTrasAudioSeg": 0.5,
+    "precalentar": true,
+    "cacheMaxArchivos": 3000
+  },
+  "carrera": {
+    "largo": 12000,
+    "carriles": 6,
+    "velocidadBase": 175,
+    "variacion": 0.07,
+    "variacionCadaSeg": 1,
+    "ligaFuerza": 0.22,
+    "ligaDistancia": 1500,
+    "vidaBajaUmbral": 0.4,
+    "vidaBajaFactor": 0.8,
+    "golpeFrenoSeg": 0.4,
+    "golpeFrenoFactor": 0.55,
+    "cuentaSeg": 4,
+    "maxSeg": 110,
+    "trasPrimeroSeg": 18,
+    "avisoSeg": 3,
+    "derivaCarrilesPorSeg": 0.35,
+    "cambioRumboCadaSeg": [2, 5],
+    "separacionCarriles": 0.75,
+    "separacionLargo": 110,
+    "anchoAuto": 0.5,
+    "chatarraDano": 6,
+    "chatarraAncho": 0.6,
+    "parrillaColumnas": 6,
+    "parrillaSeparacion": 150,
+    "densidadInicialCada": 1080,
+    "densidadFinalCada": 560,
+    "zonaLibreInicio": 700,
+    "zonaLibreFinal": 250,
+    "puntos": [25, 18, 15, 12, 10, 8, 6, 4, 2, 1],
+    "puntosDestruido": 0,
+    "puntosLlegar": 1,
+    "narrarLiderCadaSeg": 9,
+    "charlaCadaSeg": [9, 15],
+    "modelos": ["sedan", "sedan", "combi", "deportivo", "mototaxi", "camion"],
+    "tramos": ["ciudad", "mercado", "carretera", "cerro", "meta"]
+  },
+  "obstaculos": {
+    "cono":     { "dano": 8,  "ancho": 0.6, "mov": "fijo",  "tramos": ["ciudad", "meta"] },
+    "bache":    { "dano": 12, "ancho": 0.9, "mov": "fijo",  "tramos": ["ciudad", "carretera", "meta"] },
+    "ambulante":{ "dano": 14, "ancho": 0.8, "mov": "cruza", "vel": 0.6, "tramos": ["ciudad", "mercado"] },
+    "policia":  { "dano": 10, "ancho": 0.6, "mov": "fijo",  "tramos": ["ciudad"] },
+    "cajones":  { "dano": 10, "ancho": 1.0, "mov": "fijo",  "tramos": ["mercado", "meta"] },
+    "charco":   { "dano": 5,  "ancho": 1.4, "mov": "fijo",  "tramos": ["mercado", "carretera"] },
+    "perro":    { "dano": 9,  "ancho": 0.5, "mov": "cruza", "vel": 1.4, "tramos": ["mercado", "carretera"] },
+    "toldo":    { "dano": 11, "ancho": 2.0, "mov": "fijo",  "tramos": ["mercado"] },
+    "vaca":     { "dano": 20, "ancho": 1.1, "mov": "cruza", "vel": 0.35, "tramos": ["carretera", "meta"] },
+    "camion":   { "dano": 22, "ancho": 1.2, "mov": "lento", "vel": 70, "tramos": ["carretera"] },
+    "derrumbe": { "dano": 18, "ancho": 2.2, "mov": "fijo",  "tramos": ["cerro", "meta"] },
+    "huaico":   { "dano": 24, "ancho": 3.0, "mov": "cruza", "vel": 0.25, "tramos": ["cerro"] },
+    "piedra":   { "dano": 13, "ancho": 0.8, "mov": "fijo",  "tramos": ["cerro", "carretera"] }
+  },
+  "obstaculosConAviso": ["ambulante", "policia", "toldo", "vaca", "camion", "derrumbe", "huaico", "perro"],
+  "bots": {
+    "nombres": ["Tío Pepe (bot)", "La Chola (bot)", "Compadre Lucho (bot)", "Don Gato (bot)", "Mototaxista Ñato (bot)", "Sobrino Kevin (bot)", "Tía Charo (bot)", "El Cuy (bot)", "Choferazo (bot)", "Doña Peta (bot)"]
+  },
+  "antiSpam": {
+    "maxMensajes": 4,
+    "ventanaSeg": 10,
+    "silencioSeg": 30
+  },
+  "comandos": {
+    "balde": { "tipo": "molestia", "fases": ["ESPERA", "LOBBY"], "cooldownGlobalSeg": 15, "cooldownUsuarioSeg": 0, "paciencia": 15, "estadistica": "baldazos" },
+    "cafe": { "tipo": "molestia", "fases": ["ESPERA", "LOBBY"], "cooldownGlobalSeg": 30, "cooldownUsuarioSeg": 0, "paciencia": 12, "estadistica": "cafes" },
+    "corneta": { "tipo": "molestia", "fases": ["ESPERA", "LOBBY"], "cooldownGlobalSeg": 20, "cooldownUsuarioSeg": 0, "paciencia": 18, "estadistica": "cornetazos" },
+    "manta": { "tipo": "molestia", "fases": ["ESPERA"], "cooldownGlobalSeg": 40, "cooldownUsuarioSeg": 0, "paciencia": 10, "estadistica": "mantas" },
+    "jugar": { "tipo": "jugar", "fases": ["ESPERA"], "cooldownGlobalSeg": 0, "cooldownUsuarioSeg": 0 }
+  },
+  "leyendaEspera": ["balde", "cafe", "corneta", "manta", "jugar"],
+  "equipos": {
+    "activo": false,
+    "bandos": ["ceviche", "chifa"]
+  },
+  "simulador": {
+    "factorRapido": 3,
+    "lagMinSeg": 1,
+    "lagMaxSeg": 6,
+    "botCadenciaSeg": [6, 22],
+    "olaQuietaInicialSeg": 70,
+    "olaActivaSeg": 35,
+    "olaQuietaSeg": 80,
+    "probComentarioNormal": 0.008,
+    "probRafagaSpam": 0.04,
+    "probComandoInvalido": 0.04,
+    "probComentarLobby": 0.5,
+    "llegadasIniciales": true,
+    "mironCadaSeg": [15, 35],
+    "mironQuedaSeg": [60, 180]
+  },
+  "publico": {
+    "maxEspectadoresParaSaludarTodos": 10,
+    "probSaludoConMuchos": 0.15,
+    "saludoCadaSeg": 5,
+    "colaMax": 4,
+    "saludoMaxEdadSeg": 20,
+    "ignorarReentradaSeg": 60,
+    "molestarMironTrasSeg": 45,
+    "molestarMironCadaSeg": [25, 45],
+    "mironActivoSeg": 300
+  }
+}

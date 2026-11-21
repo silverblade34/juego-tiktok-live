@@ -1,0 +1,8 @@
+node_modules/
+data/*.json
+muestras-voz/
+.venv-voz/
+data/voz-cache/
+.venv-xtts/
+.venv-clon/
+capturas/
