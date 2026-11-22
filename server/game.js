@@ -29,6 +29,8 @@ export class Juego {
     this.cooldowns = new Cooldowns();
     const s = config.antiSpam;
     this.antiSpam = new AntiSpam({ maxMensajes: s.maxMensajes, ventanaMs: s.ventanaSeg * 1000, silencioMs: s.silencioSeg * 1000 });
+    // Set de comandos que se aceptan sin "!" (configurado en config.comandos_sin_exclamacion)
+    this.cmdsSinExcl = new Set((config.comandos_sin_exclamacion ?? []).map(c => c.toLowerCase()));
     this.lucho = new Lucho({ config, narrador: this.narrador, rng, escalaTiempo });
     this.publico = new Publico({ config, rng });
     this.lucho.alEvento = (tipo, datos) => this.emitir(tipo, datos);
@@ -124,7 +126,7 @@ export class Juego {
     else if (this.fase === 'CARRERA' || this.fase === 'RESULTADOS') this.anotarParaProxima(userId, nombre);
 
     // 3) ¿Comando?
-    const c = parsearComando(texto);
+    const c = parsearComando(texto, this.cmdsSinExcl);
     if (c) {
       const def = this.cfg.comandos[c.cmd];
       if (def && def.fases.includes(this.fase)) this.ejecutarComando(c.cmd, def, userId, nombre, c.args);

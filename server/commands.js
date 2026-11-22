@@ -8,14 +8,30 @@ function quitarTildes(s) {
 
 /**
  * Convierte un texto de chat en comando.
- * "  !TURBO  ya " -> { cmd: 'turbo', args: ['ya'] }. Devuelve null si no es comando.
+ * Con signo:    "  !TURBO  ya " -> { cmd: 'turbo', args: ['ya'] }
+ * Sin signo:    "balde" / "CAFE" -> { cmd: 'balde', args: [] }  (si está en cmdsSinExclamacion)
+ * Devuelve null si no es comando.
+ *
+ * @param {string} texto
+ * @param {Set<string>} [cmdsSinExclamacion] - conjunto de comandos que se aceptan sin "!"
  */
-export function parsearComando(texto) {
+export function parsearComando(texto, cmdsSinExclamacion = new Set()) {
   if (typeof texto !== 'string') return null;
   const limpio = quitarTildes(texto.trim().toLowerCase()).replace(/\s+/g, ' ');
-  const m = limpio.match(/^!\s?([a-z0-9]+)(?:\s+(.*))?$/);
-  if (!m) return null;
-  return { cmd: m[1], args: m[2] ? m[2].split(' ') : [] };
+
+  // Con signo "!" (comportamiento original)
+  const mExcl = limpio.match(/^!\s?([a-z0-9]+)(?:\s+(.*))?$/);
+  if (mExcl) return { cmd: mExcl[1], args: mExcl[2] ? mExcl[2].split(' ') : [] };
+
+  // Sin signo "!": solo si el mensaje es EXACTAMENTE la palabra del comando sola
+  // (sin texto antes ni después), para evitar falsos positivos en frases normales.
+  // "balde" → ok; "balde de agua" → NO; "oye balde" → NO.
+  const mSimple = limpio.match(/^([a-z0-9]+)$/);
+  if (mSimple && cmdsSinExclamacion.has(mSimple[1])) {
+    return { cmd: mSimple[1], args: [] };
+  }
+
+  return null;
 }
 
 /** Cooldowns de dos tipos: GLOBAL (todo el chat) y POR USUARIO. Guarda instantes de expiración. */

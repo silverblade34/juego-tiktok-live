@@ -16,6 +16,21 @@ test('parsearComando: no-comandos devuelven null', () => {
   assert.equal(parsearComando(''), null);
   assert.equal(parsearComando('!'), null);
   assert.equal(parsearComando(undefined), null);
+  // Sin exclamación y sin set: sigue siendo null
+  assert.equal(parsearComando('balde'), null);
+});
+
+test('parsearComando: sin "!" con set habilitado', () => {
+  const cmds = new Set(['balde', 'cafe', 'turbo', 'lanzar']);
+  assert.deepEqual(parsearComando('balde', cmds), { cmd: 'balde', args: [] });
+  assert.deepEqual(parsearComando('CAFE', cmds), { cmd: 'cafe', args: [] });
+  // Sin "!" solo se acepta la palabra exacta, sin args ni texto extra
+  assert.equal(parsearComando('balde de agua', cmds), null, 'mensaje con texto extra no dispara sin !');
+  assert.equal(parsearComando('lanzar 3', cmds), null, 'sin ! no se aceptan args');
+  // Comando no en el set no pasa
+  assert.equal(parsearComando('manta', cmds), null, 'comando no en set sigue siendo null');
+  // Con "!" sí acepta args aunque no esté en el set
+  assert.deepEqual(parsearComando('!lanzar 3', cmds), { cmd: 'lanzar', args: ['3'] });
 });
 
 test('Cooldowns: global bloquea a todos', () => {
